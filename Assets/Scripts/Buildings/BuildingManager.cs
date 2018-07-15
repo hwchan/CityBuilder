@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class BuildingManager : MonoBehaviour {
 
+    public CityManager CityManager;
+
+    public Building CurrentBuilding { get; private set; }
+
     public GameObject buildingButtonObject;
     public GameObject buildingListObject;
 
@@ -68,41 +72,68 @@ public class BuildingManager : MonoBehaviour {
         foreach(Building b in Buildings)
         {
             b.gObject = GameObject.Find(b.BuildingName);
+            b.gObject.SetActive(false);
+            b.Sprite = Resources.Load<Sprite>(b.BuildingName);
             //b.gObject.SetActive(false);
             var btn = Instantiate(buildingButtonObject);
             btn.transform.SetParent(buildingListObject.transform);
             btn.transform.localScale = Vector3.one;
-            btn.GetComponent<BuildingButton>().InitializeBuildingButton(this, b.BuildingName, b.BuildingName);
+            var bb = btn.GetComponent<BuildingButton>();
+            bb.InitializeBuildingButton(this, b);
+            b.BuildingButton = bb;
         }
-        Debug.Log(Buildings.Count);
     }
 
-    public void DoWork()
+    public Building SetCurrentBuilding(string buildingText)
     {
+        CurrentBuilding = this[buildingText];
+        //GuiManager.UpdateBuildingDetailGui(_sprite, _text, _buildingManager[_text]);
+        return CurrentBuilding;
+    }
+
+    public int AddBuildingLevel(Building building)
+    {
+        if (building == null)
+            building = CurrentBuilding;
+
+        building.gObject.SetActive(true);
+        building.Level++;
+        //building.BuildingButton.UpdateBuildingGui();
+        building.BuildingButton.OnClick();
+        CityManager.AddCoin(-building.CoinCost);
+        CityManager.SetIncome(CityManager.Income - building.CoinUpkeep);
+        return building.Level;
+    }
+
+    public void StartBuildingConstruction()
+    {
+        CityManager.AddCoin(-CurrentBuilding.CoinCost);
+        CurrentBuilding.Initialize();
+        GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
+        //CurrentBuilding.BuildingButton.UpdateBuildingGui();
+    }
+
+    public void HandleBuildingsOnEndTurn()
+    {
+        int income = 0;
+
         foreach (Building b in Buildings)
         {
-            for(int i = 0; i < b.Level; i++)
+            for (int i = 0; i < b.Level; i++)
+            {
                 b.HandleGoods(Inventory, 1);
+                income -= b.CoinUpkeep;
+            }
+
+            if (b.CurrentProduction > 0 && --b.CurrentProduction <= 0)
+                AddBuildingLevel(b);
+
+            b.BuildingButton.UpdateBuildingButton();
         }
 
-        //foreach (var i in Inventory)
-        //{
-        //    Debug.Log(i.Key + ": " + i.Value);
-        //}
-    }
-
-    void OnGUI()
-    {
-        int j = 0;
-        foreach (KeyValuePair<Good, int> kvp in Inventory)
-        {
-            if (j == 4)
-                j++;
-            if (j == 7)
-                j++;
-            if (j == 13)
-                j++;
-            GUI.Label(new Rect(50 + j++ * 32f, 802, 100, 90), kvp.Value.ToString(), new GUIStyle { fontSize = 14 });
-        }
+        CityManager.AddCoin(income);
+        CityManager.SetIncome(income);
+        GuiManager.UpdateGui(Inventory);
+        GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
     }
 }

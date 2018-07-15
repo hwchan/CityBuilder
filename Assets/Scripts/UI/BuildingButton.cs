@@ -5,40 +5,49 @@ using System.Collections;
 public class BuildingButton : MonoBehaviour {
 
     //private string _spriteName;
-    private Sprite _sprite;
-    private string _text;
-    private GameObject _gameObject;
+    //private Sprite _sprite;
+    //private string _text;
+    //private GameObject _gameObject;
 
     private Image _imageComponent;
     private Text _textComponent;
 
     private BuildingManager _buildingManager;
+    private Building _building;
 
-	void Start () {
-        _gameObject = GameObject.Find(_text);
-        _gameObject.SetActive(false);
-        
-    }
+	//void Start () {
+        //_gameObject = GameObject.Find(_text);
+        //_gameObject.SetActive(false);
+    //}
 
-    public void InitializeBuildingButton(BuildingManager manager, string spriteName, string text)
+    public void InitializeBuildingButton(BuildingManager manager, Building building)
     {
         _buildingManager = manager;
-        _sprite = Resources.Load<Sprite>(spriteName);
-        _text = text;
+        _building = building;
+        //_sprite = Resources.Load<Sprite>(spriteName);
+        //_text = text;
 
         _imageComponent = transform.FindChild("Image").GetComponent<Image>();
         _textComponent = transform.FindChild("Text").GetComponent<Text>();
 
-        _imageComponent.sprite = _sprite;
-        _textComponent.text = _buildingManager[_text].Level + " " + _text.ToUpper();
+        _imageComponent.sprite = _building.Sprite;
+        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
-    void OnClick()
+    public void OnClick()
     {
         //Debug.Log(_text);
-        _gameObject.SetActive(true);
-        _textComponent.text = ++_buildingManager[_text].Level + " " + _text.ToUpper();
-        GuiManager.DoFoo(_sprite, _text);
+        //_gameObject.SetActive(true);
+        GuiManager.UpdateBuildingDetailGui(_building);
+        UpdateBuildingButton();
+
+        _buildingManager.SetCurrentBuilding(_building.BuildingName);
+    }
+
+    public void UpdateBuildingButton()
+    {
+        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
+        
     }
 }

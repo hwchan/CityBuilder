@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class Building {
 
@@ -18,6 +19,15 @@ public class Building {
     public GoodsCollection MaterialsRequired { get; set; }
     public GoodsCollection MaterialsProduced { get; set; }
     public Action<GoodsCollection> BuildingEffect { get; set; }
+
+    public Sprite Sprite { get; set; }
+    public BuildingButton BuildingButton { get; set; }
+    public int CurrentProduction { get; set; }
+
+    public void Initialize()
+    {
+        CurrentProduction = ProductionCost;
+    }
 
     public void HandleGoods(GoodsCollection inventory, int numberOfBuildings)
     {

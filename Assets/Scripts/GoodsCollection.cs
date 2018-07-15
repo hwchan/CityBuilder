@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 public class GoodsCollection : Dictionary<Good, int> {
 
@@ -44,8 +45,34 @@ public class GoodsCollection : Dictionary<Good, int> {
         }
     }
 
+    public new int this[Good good]
+    {
+        get
+        {
+            if (ContainsKey(good))
+                return base[good];
+            return 0;
+        }
+        set
+        {
+            if (ContainsKey(good))
+                base[good] = value;
+            else
+                Add(good, value);
+        }
+    }
+
     public string GetKvp(Good good)
     {
         return good + ": " + this[good];
+    }
+
+    public override string ToString()
+    {
+        StringBuilder build = new StringBuilder();
+        foreach (KeyValuePair<Good, int> kvp in this)
+            build.Append(kvp.Key.ToString() + ":" + kvp.Value + " ");
+
+        return build.ToString();
     }
 }
