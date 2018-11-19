@@ -67,6 +67,18 @@ public class GoodsCollection : Dictionary<Good, int> {
         return good + ": " + this[good];
     }
 
+    public static GoodsCollection operator- (GoodsCollection a, GoodsCollection b)
+    {
+        var ret = new GoodsCollection(a);
+
+        foreach (var key in b.Keys)
+        {
+            ret[key] -= b[key];
+        }
+
+        return ret;
+    }
+
     public override string ToString()
     {
         StringBuilder build = new StringBuilder();

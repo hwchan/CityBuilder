@@ -14,6 +14,8 @@ public class BuildingManager : MonoBehaviour {
     public GoodsCollection Inventory { get; set; }
     public List<Building> Buildings { get; set; }
 
+    public GoodsCollection IncomeInventory { get; set; }
+
     public Building this[string index]
     {
         get { return Buildings.Find(x => x.BuildingName.ToUpper() == index.ToUpper()); }
@@ -22,6 +24,7 @@ public class BuildingManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        IncomeInventory = new GoodsCollection(0);
         Inventory = new GoodsCollection(0);
 
         Buildings = new List<Building>()
@@ -115,14 +118,15 @@ public class BuildingManager : MonoBehaviour {
 
     public void HandleBuildingsOnEndTurn()
     {
-        int income = 0;
+        int incomeGold = 0;
+        var prevGoods = new GoodsCollection(Inventory);
 
         foreach (Building b in Buildings)
         {
             for (int i = 0; i < b.Level; i++)
             {
                 b.HandleGoods(Inventory, 1);
-                income -= b.CoinUpkeep;
+                incomeGold -= b.CoinUpkeep;
             }
 
             if (b.CurrentProduction > 0 && --b.CurrentProduction <= 0)
@@ -131,9 +135,13 @@ public class BuildingManager : MonoBehaviour {
             b.BuildingButton.UpdateBuildingButton();
         }
 
-        CityManager.AddCoin(income);
-        CityManager.SetIncome(income);
+        CityManager.AddCoin(incomeGold);
+        CityManager.SetIncome(incomeGold);
         GuiManager.UpdateGui(Inventory);
         GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
+
+        //calculate the difference in resources
+        IncomeInventory = Inventory - prevGoods;
+        Debug.Log(IncomeInventory);
     }
 }

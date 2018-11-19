@@ -10,6 +10,8 @@ public class GuiManager : MonoBehaviour {
 
     public static void UpdateBuildingDetailGui(Building building)
     {
+        if (building == null)
+            return;
         if (Panel == null)
             Panel = GameObject.Find("LeftPanelBuilding");
 
@@ -28,7 +30,16 @@ public class GuiManager : MonoBehaviour {
         Panel.transform.FindChild("COIN").GetComponent<Text>().text = building.CoinCost.ToString();
         Panel.transform.FindChild("TIME").GetComponent<Text>().text = building.ProductionCost.ToString();
 
-        Panel.transform.FindChild("TimeLeftText").GetComponent<Text>().text = building.CurrentProduction.ToString();
+        if (building.CurrentProduction > 0)
+        {
+            Panel.transform.FindChild("TimeLeftText").gameObject.SetActive(true);
+            Panel.transform.FindChild("TimeLeftText").GetComponent<Text>().text = building.CurrentProduction.ToString();
+        }
+        else
+        {
+            Panel.transform.FindChild("TimeLeftText").gameObject.SetActive(false);
+        }
+        
     }
 
     public static void UpdateGui(GoodsCollection inventory)
