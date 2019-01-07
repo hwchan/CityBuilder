@@ -7,14 +7,25 @@ using UnityEngine.UI;
 
 public class Building {
 
+    private int _level;
     public GameObject gObject;
 
     public string BuildingName { get; set; }
-    public int Level { get; set; }
-    public int Tier { get; set; }
+    public int Level
+    {
+        get { return _level; }
+        set
+        {
+            _level = value;
+            WorkerCapacity = Level * 1;
+        }
+    }
+    public int Tier { get; set; }   //civ tier
     public int CoinCost { get; set; }
     public int CoinUpkeep { get; set; }
     public int ProductionCost { get; set; }
+    public int WorkerCapacity { get; set; }
+    public int Workers { get; private set; }
     public GoodsCollection BuildingCost { get; set; }
     public GoodsCollection MaterialsRequired { get; set; }
     public GoodsCollection MaterialsProduced { get; set; }
@@ -27,6 +38,16 @@ public class Building {
     public void Initialize()
     {
         CurrentProduction = ProductionCost;
+    }
+
+    public bool TryAddWorker(int val)
+    {
+        var total = Workers + val;
+        if (total < 0 || total > WorkerCapacity)
+            return false;
+
+        Workers += val;
+        return true;
     }
 
     public void HandleGoods(GoodsCollection inventory, int numberOfBuildings)

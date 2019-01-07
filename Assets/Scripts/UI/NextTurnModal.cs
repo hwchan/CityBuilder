@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class NextTurnModal : MonoBehaviour {
 
     public Button OkButton;
-    private BuildingManager _manager;
-    private CityManager _cityManager;
 
     public GameObject _inventoryModalPanel;
 
@@ -30,48 +28,44 @@ public class NextTurnModal : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        _manager = GameObject.Find("BuildingManager").GetComponent<BuildingManager>();
-        _cityManager = GameObject.Find("CityManager").GetComponent<CityManager>();
-        //_inventoryModalPanel.transform.FindChild("WOOD").FindChild("WoodChange").GetComponent<Text>().text = "100";
-
-        _woodChange = _inventoryModalPanel.transform.FindChild("WOOD").FindChild("WoodChange").GetComponent<Text>();
-        _stoneChange = _inventoryModalPanel.transform.FindChild("STONE").FindChild("StoneChange").GetComponent<Text>();
-        _ironChange = _inventoryModalPanel.transform.FindChild("IRON").FindChild("IronChange").GetComponent<Text>();
-        _toolChange = _inventoryModalPanel.transform.FindChild("TOOL").FindChild("ToolChange").GetComponent<Text>();
-        _grainChange = _inventoryModalPanel.transform.FindChild("GRAIN").FindChild("GrainChange").GetComponent<Text>();
-        _meatChange = _inventoryModalPanel.transform.FindChild("MEAT").FindChild("MeatChange").GetComponent<Text>();
-        _clayChange = _inventoryModalPanel.transform.FindChild("CLAY").FindChild("ClayChange").GetComponent<Text>();
-        _coalChange = _inventoryModalPanel.transform.FindChild("COAL").FindChild("CoalChange").GetComponent<Text>();
-        _flaxChange = _inventoryModalPanel.transform.FindChild("FLAX").FindChild("FlaxChange").GetComponent<Text>();
-        _herbChange = _inventoryModalPanel.transform.FindChild("HERB").FindChild("HerbChange").GetComponent<Text>();
-        _goldChange = _inventoryModalPanel.transform.FindChild("GOLD").FindChild("GoldChange").GetComponent<Text>();
-        _ceramicChange = _inventoryModalPanel.transform.FindChild("CERAMIC").FindChild("CeramicChange").GetComponent<Text>();
-        _clothChange = _inventoryModalPanel.transform.FindChild("CLOTH").FindChild("ClothChange").GetComponent<Text>();
-        _aleChange = _inventoryModalPanel.transform.FindChild("ALE").FindChild("AleChange").GetComponent<Text>();
-        _paperChange = _inventoryModalPanel.transform.FindChild("PAPER").FindChild("PaperChange").GetComponent<Text>();
-        _weaponChange = _inventoryModalPanel.transform.FindChild("WEAPON").FindChild("WeaponChange").GetComponent<Text>();
-        _artisanChange = _inventoryModalPanel.transform.FindChild("ARTISAN").FindChild("ArtisanChange").GetComponent<Text>();
+        _woodChange = _inventoryModalPanel.transform.Find("WOOD").Find("WoodChange").GetComponent<Text>();
+        _stoneChange = _inventoryModalPanel.transform.Find("STONE").Find("StoneChange").GetComponent<Text>();
+        _ironChange = _inventoryModalPanel.transform.Find("IRON").Find("IronChange").GetComponent<Text>();
+        _toolChange = _inventoryModalPanel.transform.Find("TOOL").Find("ToolChange").GetComponent<Text>();
+        _grainChange = _inventoryModalPanel.transform.Find("GRAIN").Find("GrainChange").GetComponent<Text>();
+        _meatChange = _inventoryModalPanel.transform.Find("MEAT").Find("MeatChange").GetComponent<Text>();
+        _clayChange = _inventoryModalPanel.transform.Find("CLAY").Find("ClayChange").GetComponent<Text>();
+        _coalChange = _inventoryModalPanel.transform.Find("COAL").Find("CoalChange").GetComponent<Text>();
+        _flaxChange = _inventoryModalPanel.transform.Find("FLAX").Find("FlaxChange").GetComponent<Text>();
+        _herbChange = _inventoryModalPanel.transform.Find("HERB").Find("HerbChange").GetComponent<Text>();
+        _goldChange = _inventoryModalPanel.transform.Find("GOLD").Find("GoldChange").GetComponent<Text>();
+        _ceramicChange = _inventoryModalPanel.transform.Find("CERAMIC").Find("CeramicChange").GetComponent<Text>();
+        _clothChange = _inventoryModalPanel.transform.Find("CLOTH").Find("ClothChange").GetComponent<Text>();
+        _aleChange = _inventoryModalPanel.transform.Find("ALE").Find("AleChange").GetComponent<Text>();
+        _paperChange = _inventoryModalPanel.transform.Find("PAPER").Find("PaperChange").GetComponent<Text>();
+        _weaponChange = _inventoryModalPanel.transform.Find("WEAPON").Find("WeaponChange").GetComponent<Text>();
+        _artisanChange = _inventoryModalPanel.transform.Find("ARTISAN").Find("ArtisanChange").GetComponent<Text>();
 
         OkButton.onClick.AddListener(() => { gameObject.SetActive(false); });
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //var foo = _manager.IncomeInventory;
+        
 	}
 
     public void ShowNextTurnModal()
     {
         gameObject.SetActive(true);
-        foreach (var i in _manager.IncomeInventory.Keys)
+        foreach (var i in Globals.BuildingManager.IncomeInventory.Keys)
         {
-            UpdateGoodIncomeText(i, _manager.IncomeInventory[i]);
+            UpdateGoodIncomeText(i, Globals.BuildingManager.IncomeInventory[i]);
         }
     }
 
     public void UpdateGoodIncomeText(Good good, int value)
     {
-        var foo = _inventoryModalPanel.transform.FindChild(good.ToString().ToUpper());
+        var foo = _inventoryModalPanel.transform.Find(good.ToString().ToUpper());
         if (value == 0)
         {
             foo.gameObject.SetActive(false);
@@ -79,6 +73,6 @@ public class NextTurnModal : MonoBehaviour {
         }
         foo.gameObject.SetActive(true);
         string txt = value > 0 ? "+" + value : value.ToString();
-        foo.FindChild(good + "Change").GetComponent<Text>().text = txt;
+        foo.Find(good + "Change").GetComponent<Text>().text = txt;
     }
 }

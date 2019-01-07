@@ -13,6 +13,8 @@ public class CityManager : MonoBehaviour {
     public int Safety { get; private set; }
     public int Turns { get; private set; }
 
+    public int Unemployed { get; private set; }
+
     public GameObject Panel;
     private Text _coinText;
     private Text _populationText;
@@ -22,15 +24,15 @@ public class CityManager : MonoBehaviour {
     private Text _turnsText;
 
     void Start () {
-        _coinText = Panel.transform.FindChild("CoinText").GetComponent<Text>();
-        _populationText = Panel.transform.FindChild("PopulationText").GetComponent<Text>();
-        _cultureText = Panel.transform.FindChild("CultureText").GetComponent<Text>();
-        _scienceText = Panel.transform.FindChild("ScienceText").GetComponent<Text>();
-        _safetyText = Panel.transform.FindChild("SafetyText").GetComponent<Text>();
-        _turnsText = Panel.transform.FindChild("TurnsText").GetComponent<Text>();
+        _coinText = Panel.transform.Find("CoinText").GetComponent<Text>();
+        _populationText = Panel.transform.Find("PopulationText").GetComponent<Text>();
+        _cultureText = Panel.transform.Find("CultureText").GetComponent<Text>();
+        _scienceText = Panel.transform.Find("ScienceText").GetComponent<Text>();
+        _safetyText = Panel.transform.Find("SafetyText").GetComponent<Text>();
+        _turnsText = Panel.transform.Find("TurnsText").GetComponent<Text>();
 
         AddCoin(10000);
-        AddPopulation(50);
+        TryAddPopulation(50);
 
         AddCulture(0);
         AddScience(10);
@@ -50,11 +52,26 @@ public class CityManager : MonoBehaviour {
         return Coin;
     }
 
-    public int AddPopulation(int val)
+    public bool TryAddPopulation(int val)
     {
         Population += val;
-        _populationText.text = Population.ToString();
-        return Population;
+        if (!TryAddUnemployed(val))
+        {
+            Population -= val;
+            return false;
+        }
+        _populationText.text = $"{Unemployed} / {Population}";
+        return true;
+    }
+
+    public bool TryAddUnemployed(int val)
+    {
+        if ((val + Unemployed) < 0 || (val + Unemployed) > Population)
+            return false;
+
+        Unemployed += val;
+        _populationText.text = $"{Unemployed} / {Population}";
+        return true;
     }
 
     public int AddCulture(int val)

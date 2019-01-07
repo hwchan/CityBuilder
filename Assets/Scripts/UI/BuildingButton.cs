@@ -27,8 +27,8 @@ public class BuildingButton : MonoBehaviour {
         //_sprite = Resources.Load<Sprite>(spriteName);
         //_text = text;
 
-        _imageComponent = transform.FindChild("Image").GetComponent<Image>();
-        _textComponent = transform.FindChild("Text").GetComponent<Text>();
+        _imageComponent = transform.Find("Image").GetComponent<Image>();
+        _textComponent = transform.Find("Text").GetComponent<Text>();
 
         _imageComponent.sprite = _building.Sprite;
         _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();

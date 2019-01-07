@@ -77,7 +77,6 @@ public class BuildingManager : MonoBehaviour {
             b.gObject = GameObject.Find(b.BuildingName);
             b.gObject.SetActive(false);
             b.Sprite = Resources.Load<Sprite>(b.BuildingName);
-            //b.gObject.SetActive(false);
             var btn = Instantiate(buildingButtonObject);
             btn.transform.SetParent(buildingListObject.transform);
             btn.transform.localScale = Vector3.one;
@@ -90,7 +89,6 @@ public class BuildingManager : MonoBehaviour {
     public Building SetCurrentBuilding(string buildingText)
     {
         CurrentBuilding = this[buildingText];
-        //GuiManager.UpdateBuildingDetailGui(_sprite, _text, _buildingManager[_text]);
         return CurrentBuilding;
     }
 
@@ -99,21 +97,42 @@ public class BuildingManager : MonoBehaviour {
         if (building == null)
             building = CurrentBuilding;
 
-        building.gObject.SetActive(true);
+        //building.gObject.SetActive(true);
         building.Level++;
-        //building.BuildingButton.UpdateBuildingGui();
         building.BuildingButton.OnClick();
         CityManager.AddCoin(-building.CoinCost);
         CityManager.SetIncome(CityManager.Income - building.CoinUpkeep);
         return building.Level;
     }
 
-    public void StartBuildingConstruction()
+    public void StartBuildingConstruction(Building b)
     {
-        CityManager.AddCoin(-CurrentBuilding.CoinCost);
-        CurrentBuilding.Initialize();
-        GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
-        //CurrentBuilding.BuildingButton.UpdateBuildingGui();
+        CityManager.AddCoin(-b.CoinCost);
+        b.Initialize();
+        GuiManager.UpdateBuildingDetailGui(b);
+
+        b.gObject.SetActive(true);
+        b.gObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, .5f);
+        Instantiate(Globals.Time, b.gObject.transform);
+    }
+
+    private void CheckBuildingConstruction(Building b)
+    {
+        if (b.CurrentProduction > 0 && --b.CurrentProduction <= 0)
+        {
+            AddBuildingLevel(b);
+            b.gObject.GetComponent<SpriteRenderer>().color = Color.white;
+            Destroy(b.gObject.transform.Find("TIME(Clone)").gameObject);
+        }
+    }
+
+    public void AddWorkers(int val, Building b)
+    {
+        if (b.TryAddWorker(val))
+        {
+            Globals.CityManager.TryAddUnemployed(-val);
+        }
+        GuiManager.UpdateBuildingDetailGui(b);
     }
 
     public void HandleBuildingsOnEndTurn()
@@ -123,25 +142,25 @@ public class BuildingManager : MonoBehaviour {
 
         foreach (Building b in Buildings)
         {
-            for (int i = 0; i < b.Level; i++)
+            for (int i = 0; i < b.Workers; i++)
             {
                 b.HandleGoods(Inventory, 1);
                 incomeGold -= b.CoinUpkeep;
             }
 
-            if (b.CurrentProduction > 0 && --b.CurrentProduction <= 0)
-                AddBuildingLevel(b);
+            CheckBuildingConstruction(b);
 
             b.BuildingButton.UpdateBuildingButton();
         }
 
         CityManager.AddCoin(incomeGold);
         CityManager.SetIncome(incomeGold);
-        GuiManager.UpdateGui(Inventory);
+        
         GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
 
         //calculate the difference in resources
         IncomeInventory = Inventory - prevGoods;
-        Debug.Log(IncomeInventory);
+        //Debug.Log(IncomeInventory);
+        GuiManager.UpdateGui(Inventory);
     }
 }
