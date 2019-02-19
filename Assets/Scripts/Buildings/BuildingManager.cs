@@ -25,7 +25,8 @@ public class BuildingManager : MonoBehaviour {
     void Start ()
     {
         IncomeInventory = new GoodsCollection(0);
-        Inventory = new GoodsCollection(0);
+        Inventory = new GoodsCollection(10);
+        GuiManager.UpdateGui(Inventory);
 
         Buildings = new List<Building>()
         {
@@ -43,7 +44,6 @@ public class BuildingManager : MonoBehaviour {
             new FlaxFarm(),
             new GoldMine(),
             new Granary(),
-            new House(),
             new HuntingLodge(),
             new IronMine(),
             new Leatherwork(),
@@ -70,6 +70,7 @@ public class BuildingManager : MonoBehaviour {
             new WheatFarm(),
             new Woodcutter(),
             new Workshop(),
+            new House(),
         };
         
         foreach(Building b in Buildings)
@@ -97,8 +98,7 @@ public class BuildingManager : MonoBehaviour {
         if (building == null)
             building = CurrentBuilding;
 
-        //building.gObject.SetActive(true);
-        building.Level++;
+        building.AddLevel(1);
         building.BuildingButton.OnClick();
         CityManager.AddCoin(-building.CoinCost);
         CityManager.SetIncome(CityManager.Income - building.CoinUpkeep);
@@ -107,6 +107,14 @@ public class BuildingManager : MonoBehaviour {
 
     public void StartBuildingConstruction(Building b)
     {
+        var missingGoods = b.TryStartConstruction(Inventory);
+        if (missingGoods.Count > 0)
+        {
+            Globals.PopupText.PopUp("Missing - " + missingGoods);
+            Debug.Log("Missing - " + missingGoods);
+            return;
+        }
+
         CityManager.AddCoin(-b.CoinCost);
         b.Initialize();
         GuiManager.UpdateBuildingDetailGui(b);
@@ -142,14 +150,9 @@ public class BuildingManager : MonoBehaviour {
 
         foreach (Building b in Buildings)
         {
-            for (int i = 0; i < b.Workers; i++)
-            {
-                b.HandleGoods(Inventory, 1);
-                incomeGold -= b.CoinUpkeep;
-            }
-
+            b.HandleGoods(Inventory);
+            incomeGold -= b.GetUpkeep(Inventory);
             CheckBuildingConstruction(b);
-
             b.BuildingButton.UpdateBuildingButton();
         }
 
@@ -160,7 +163,6 @@ public class BuildingManager : MonoBehaviour {
 
         //calculate the difference in resources
         IncomeInventory = Inventory - prevGoods;
-        //Debug.Log(IncomeInventory);
         GuiManager.UpdateGui(Inventory);
     }
 }

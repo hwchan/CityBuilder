@@ -82,7 +82,7 @@ public class Castle : Building
         ProductionCost = 3;
         BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection();
+        MaterialsProduced = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 1 }, { Good.Iron, 1 }, { Good.Tool, 1 }, { Good.Grain, 1 }, { Good.Meat, 1 }, { Good.Clay, 1 }, { Good.Coal, 1 }, { Good.Flax, 1 }, { Good.Herb, 1 }, { Good.Gold, 1 }, { Good.Ceramic, 1 }, { Good.Cloth, 1 }, { Good.Ale, 1 }, { Good.Paper, 1 }, { Good.Weapon, 1 }, { Good.Artisan, 1 }, };
         BuildingEffect = null;
     }
 }
@@ -257,23 +257,6 @@ public class Granary : Building
         BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 3 }, { Good.Iron, 1 }, { Good.Tool, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.Gold, 1 } };
-        BuildingEffect = null;
-    }
-}
-
-public class House : Building
-{
-
-    public House()
-    {
-        BuildingName = "house";
-        Tier = 1;
-        CoinCost = 15;
-        CoinUpkeep = 2;
-        ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 3 }, { Good.Iron, 1 }, { Good.Tool, 2 } };
-        MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection();
         BuildingEffect = null;
     }
 }
