@@ -12,26 +12,26 @@ public class GoodsCollection : Dictionary<Good, int> {
 
     public GoodsCollection(int amount)
     {
-        Add(Good.Wood, amount);
-        Add(Good.Stone, amount);
-        Add(Good.Iron, amount);
-        Add(Good.Tool, amount);
+        Add(Good.WOOD, amount);
+        Add(Good.STONE, amount);
+        Add(Good.IRON, amount);
+        Add(Good.TOOL, amount);
 
-        Add(Good.Grain, amount);
-        Add(Good.Meat, amount);
+        Add(Good.GRAIN, amount);
+        Add(Good.MEAT, amount);
 
-        Add(Good.Clay, amount);
-        Add(Good.Coal, amount);
-        Add(Good.Flax, amount);
-        Add(Good.Herb, amount);
-        Add(Good.Gold, amount);
+        Add(Good.CLAY, amount);
+        Add(Good.COAL, amount);
+        Add(Good.FLAX, amount);
+        Add(Good.HERB, amount);
+        Add(Good.GOLD, amount);
 
-        Add(Good.Ceramic, amount);
-        Add(Good.Cloth, amount);
-        Add(Good.Paper, amount);
-        Add(Good.Ale, amount);
-        Add(Good.Weapon, amount);
-        Add(Good.Artisan, amount);
+        Add(Good.CERAMIC, amount);
+        Add(Good.CLOTH, amount);
+        Add(Good.PAPER, amount);
+        Add(Good.ALE, amount);
+        Add(Good.WEAPON, amount);
+        Add(Good.ARTISAN, amount);
     }
 
     public GoodsCollection(GoodsCollection goods)

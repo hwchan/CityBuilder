@@ -2,18 +2,24 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GuiManager : MonoBehaviour {
 
     public static GameObject Panel;
     public static GameObject InventoryPanel;
+    public static GameObject ConstructionCostPanel;
 
     public static void UpdateBuildingDetailGui(Building building)
     {
         if (building == null)
             return;
         if (Panel == null)
+        {
             Panel = GameObject.Find("LeftPanelBuilding");
+            if (ConstructionCostPanel == null)
+                ConstructionCostPanel = GameObject.Find("ConstructionCostPanel");
+        }
 
         Panel.transform.Find("HeaderImage").GetComponent<Image>().sprite = building.Sprite;
         Panel.transform.Find("HeaderText").GetComponent<Text>().text = building.BuildingName.ToUpper();
@@ -23,12 +29,52 @@ public class GuiManager : MonoBehaviour {
         Panel.transform.Find("RequireText").GetComponent<Text>().text = "REQUIRE   " + building.MaterialsRequired;
         Panel.transform.Find("ProduceText").GetComponent<Text>().text = "PRODUCE   " + building.MaterialsProduced;
 
-        Panel.transform.Find("WOOD").GetComponent<Text>().text = building.BuildingCost[Good.Wood].ToString();
-        Panel.transform.Find("STONE").GetComponent<Text>().text = building.BuildingCost[Good.Stone].ToString();
-        Panel.transform.Find("IRON").GetComponent<Text>().text = building.BuildingCost[Good.Iron].ToString();
-        Panel.transform.Find("TOOL").GetComponent<Text>().text = building.BuildingCost[Good.Tool].ToString();
-        Panel.transform.Find("COIN").GetComponent<Text>().text = building.CoinCost.ToString();
-        Panel.transform.Find("TIME").GetComponent<Text>().text = building.ProductionCost.ToString();
+        //construction cost
+        //Panel.transform.Find("WOOD").GetComponent<Text>().text = building.BuildingCost[Good.WOOD].ToString();
+        //Panel.transform.Find("STONE").GetComponent<Text>().text = building.BuildingCost[Good.STONE].ToString();
+        //Panel.transform.Find("IRON").GetComponent<Text>().text = building.BuildingCost[Good.IRON].ToString();
+        //Panel.transform.Find("TOOL").GetComponent<Text>().text = building.BuildingCost[Good.TOOL].ToString();
+        //Panel.transform.Find("COIN").GetComponent<Text>().text = building.CoinCost.ToString();
+        //Panel.transform.Find("TIME").GetComponent<Text>().text = building.ProductionCost.ToString();
+
+        foreach (Transform t in ConstructionCostPanel.transform)
+        {
+            Good g = (Good)Enum.Parse(typeof(Good), t.name);
+
+            //TODO: maybe make coin and time cost goods?
+            if (g == Good.COIN)
+            {
+                t.gameObject.SetActive(true);
+                t.Find("Text").GetComponent<Text>().text = building.CoinCost.ToString();
+            }
+            else if (g == Good.TIME)
+            {
+                t.gameObject.SetActive(true);
+                t.Find("Text").GetComponent<Text>().text = building.ProductionCost.ToString();
+            }
+            else if (building.BuildingCost.ContainsKey(g))
+            {
+                t.gameObject.SetActive(true);
+                t.Find("Text").GetComponent<Text>().text = building.BuildingCost[g].ToString();
+            }
+            else
+            {
+                t.gameObject.SetActive(false);
+            }
+        }
+
+        //foreach (var kvp in building.BuildingCost)
+        //{
+        //    Transform t = ConstructionCostPanel.transform.Find(kvp.Key.ToString());
+        //    t.gameObject.SetActive(true);
+        //    t.Find("Text").GetComponent<Text>().text = kvp.Value.ToString();
+        //}
+
+
+
+
+
+
 
         Panel.transform.Find("WorkersText").GetComponent<Text>().text = $"{building.Workers} / {building.WorkerCapacity}";
 

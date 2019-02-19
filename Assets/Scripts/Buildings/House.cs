@@ -12,7 +12,7 @@ public class House : Building
         //CoinUpkeep = -10;
         ProductionCost = 1;
         WorkerCapacity = 0;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = null;
@@ -26,7 +26,7 @@ public class House : Building
         {
             case 1:
                 b.CoinUpkeep = -10;
-                b.BuildingCost = new GoodsCollection { { Good.Wood, 1 } };
+                b.BuildingCost = new GoodsCollection { { Good.WOOD, 1 } };
                 b.PopulationIncrease = 5;
                 break;
             case 2:
@@ -34,12 +34,12 @@ public class House : Building
                 break;
             case 3:
                 b.CoinUpkeep = -40;
-                b.BuildingCost = new GoodsCollection { { Good.Wood, 2 }, { Good.Stone, 1 } };
-                b.MaterialsRequired = new GoodsCollection { { Good.Grain, 1 } };
+                b.BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.STONE, 1 } };
+                b.MaterialsRequired = new GoodsCollection { { Good.GRAIN, 1 } };
                 break;
             case 4:
                 b.CoinUpkeep = -60;
-                b.MaterialsRequired = new GoodsCollection { { Good.Grain, 2 } };
+                b.MaterialsRequired = new GoodsCollection { { Good.GRAIN, 2 } };
                 break;
             case 5:
             case 6:
@@ -48,20 +48,20 @@ public class House : Building
             case 9:
             case 10:
                 b.CoinUpkeep = -90;
-                b.BuildingCost = new GoodsCollection { { Good.Wood, 3 }, { Good.Stone, 2 }, { Good.Tool, 1 } };
-                b.MaterialsRequired = new GoodsCollection { { Good.Grain, 3 }, { Good.Wood, 2 } };
+                b.BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 2 }, { Good.TOOL, 1 } };
+                b.MaterialsRequired = new GoodsCollection { { Good.GRAIN, 3 }, { Good.WOOD, 2 } };
                 break;
             //...
             case 11:
                 b.CoinUpkeep = -1000;
                 b.MaterialsRequired = new GoodsCollection {
-                    { Good.Grain, 9 },
-                    { Good.Wood, 8 },
-                    { Good.Meat, 5 },
-                    { Good.Ceramic, 3 },
-                    { Good.Ale, 3 },
-                    { Good.Cloth, 5 },
-                    { Good.Artisan, 1 },
+                    { Good.GRAIN, 9 },
+                    { Good.WOOD, 8 },
+                    { Good.MEAT, 5 },
+                    { Good.CERAMIC, 3 },
+                    { Good.ALE, 3 },
+                    { Good.CLOTH, 5 },
+                    { Good.ARTISAN, 1 },
                 };
                 break;
         }

@@ -12,9 +12,9 @@ public class Bakery : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 3 }, { Good.Stone, 5 }, { Good.Iron, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Grain, 1 }, { Good.Wood, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Grain, 3 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 5 }, { Good.IRON, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.GRAIN, 1 }, { Good.WOOD, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.GRAIN, 3 } };
         BuildingEffect = null;
     }
 }
@@ -29,8 +29,8 @@ public class Bank : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = null;
     }
@@ -46,8 +46,8 @@ public class Barracks : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = null;
     }
@@ -63,9 +63,9 @@ public class Brewery : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 3 }, { Good.Stone, 5 }, { Good.Iron, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Grain, 1 }, { Good.Herb, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Ale, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 5 }, { Good.IRON, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.GRAIN, 1 }, { Good.HERB, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.ALE, 1 } };
         BuildingEffect = null;
     }
 }
@@ -80,9 +80,9 @@ public class Castle : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 1 }, { Good.Iron, 1 }, { Good.Tool, 1 }, { Good.Grain, 1 }, { Good.Meat, 1 }, { Good.Clay, 1 }, { Good.Coal, 1 }, { Good.Flax, 1 }, { Good.Herb, 1 }, { Good.Gold, 1 }, { Good.Ceramic, 1 }, { Good.Cloth, 1 }, { Good.Ale, 1 }, { Good.Paper, 1 }, { Good.Weapon, 1 }, { Good.Artisan, 1 }, };
+        MaterialsProduced = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.IRON, 1 }, { Good.TOOL, 1 }, { Good.GRAIN, 1 }, { Good.MEAT, 1 }, { Good.CLAY, 1 }, { Good.COAL, 1 }, { Good.FLAX, 1 }, { Good.HERB, 1 }, { Good.GOLD, 1 }, { Good.CERAMIC, 1 }, { Good.CLOTH, 1 }, { Good.ALE, 1 }, { Good.PAPER, 1 }, { Good.WEAPON, 1 }, { Good.ARTISAN, 1 }, };
         BuildingEffect = null;
     }
 }
@@ -97,7 +97,7 @@ public class Chapel : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = null;
@@ -114,9 +114,9 @@ public class ClayPit : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 1 }, { Good.Tool, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Clay, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLAY, 1 } };
         BuildingEffect = null;
     }
 }
@@ -131,9 +131,9 @@ public class CoalMine : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Coal, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.COAL, 1 } };
         BuildingEffect = null;
     }
 }
@@ -148,9 +148,9 @@ public class ConstructionGuild : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Coal, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.COAL, 1 } };
         BuildingEffect = null;
     }
 }
@@ -165,29 +165,29 @@ public class Courthouse : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 6 }, { Good.Stone, 8 }, { Good.Iron, 3 }, { Good.Tool, 6 } };
-        MaterialsRequired = new GoodsCollection { { Good.Paper, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
+        MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = HousingPolicy;
     }
 
     private void HousingPolicy(GoodsCollection goods)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Paper, 1 } };
+        MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         CoinUpkeep = 10;
         //growth+
     }
 
     private void ConscriptionPolicy(GoodsCollection goods)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Paper, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.PAPER, 3 } };
         CoinUpkeep = 15;
         //military upkeep-
     }
 
     private void TaxPolicy(GoodsCollection goods)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Paper, 2 } };
+        MaterialsRequired = new GoodsCollection { { Good.PAPER, 2 } };
         CoinUpkeep = 20;
         //tax+
     }
@@ -203,9 +203,9 @@ public class FishingWharf : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 2 }, { Good.Tool, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Meat, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.MEAT, 1 } };
         BuildingEffect = null;
     }
 }
@@ -220,9 +220,9 @@ public class FlaxFarm : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 2 }, { Good.Tool, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Flax, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.FLAX, 1 } };
         BuildingEffect = null;
     }
 }
@@ -237,9 +237,9 @@ public class GoldMine : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 3 }, { Good.Iron, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 3 }, { Good.IRON, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Gold, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.GOLD, 1 } };
         BuildingEffect = null;
     }
 }
@@ -254,9 +254,9 @@ public class Granary : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 3 }, { Good.Iron, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 3 }, { Good.IRON, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Gold, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.GOLD, 1 } };
         BuildingEffect = null;
     }
 }
@@ -271,7 +271,7 @@ public class HuntingLodge : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 3 }, { Good.Iron, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 3 }, { Good.IRON, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = null;
@@ -288,9 +288,9 @@ public class IronMine : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Iron, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.IRON, 1 } };
         BuildingEffect = null;
     }
 }
@@ -305,9 +305,9 @@ public class Leatherwork : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Stone, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Iron, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.IRON, 1 } };
         BuildingEffect = null;
     }
 }
@@ -322,15 +322,15 @@ public class Library : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 6 }, { Good.Stone, 8 }, { Good.Iron, 3 }, { Good.Tool, 6 } };
-        MaterialsRequired = new GoodsCollection { { Good.Paper, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
+        MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = Research;
     }
 
     private void Research(GoodsCollection goods)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Paper, 1 } };
+        MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         CoinUpkeep = 10;
         //research+
     }
@@ -346,8 +346,8 @@ public class Lighthouse : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 6 }, { Good.Stone, 8 }, { Good.Iron, 3 }, { Good.Tool, 6 } };
-        MaterialsRequired = new GoodsCollection { { Good.Paper, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
+        MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = null;
     }
@@ -362,9 +362,9 @@ public class Lumbermill : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -378,9 +378,9 @@ public class Market : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -394,9 +394,9 @@ public class Physician : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -410,9 +410,9 @@ public class PigFarm : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 3 }, { Good.Stone, 1 }, { Good.Tool, 2 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Meat, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.MEAT, 1 } };
         BuildingEffect = null;
     }
 }
@@ -427,9 +427,9 @@ public class Potter : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 3 }, { Good.Stone, 3 }, { Good.Tool, 2 } };
-        MaterialsRequired = new GoodsCollection { { Good.Clay, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Ceramic, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 3 }, { Good.TOOL, 2 } };
+        MaterialsRequired = new GoodsCollection { { Good.CLAY, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CERAMIC, 1 } };
         BuildingEffect = null;
     }
 }
@@ -443,9 +443,9 @@ public class Prison : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 3 }, { Good.Stone, 3 }, { Good.Tool, 2 } };
-        MaterialsRequired = new GoodsCollection { { Good.Clay, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Ceramic, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 3 }, { Good.TOOL, 2 } };
+        MaterialsRequired = new GoodsCollection { { Good.CLAY, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CERAMIC, 1 } };
         BuildingEffect = null;
     }
 }
@@ -459,9 +459,9 @@ public class Quarry : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Tool, 3 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Stone, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.STONE, 1 } };
         BuildingEffect = null;
     }
 }
@@ -475,9 +475,9 @@ public class Shipyard : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Tool, 3 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Stone, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.STONE, 1 } };
         BuildingEffect = null;
     }
 }
@@ -491,9 +491,9 @@ public class Smithy : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 2 }, { Good.Stone, 1 }, { Good.Tool, 1 } };
-        MaterialsRequired = new GoodsCollection { { Good.Iron, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Tool, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.STONE, 1 }, { Good.TOOL, 1 } };
+        MaterialsRequired = new GoodsCollection { { Good.IRON, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.TOOL, 1 } };
         BuildingEffect = null;
     }
 }
@@ -507,9 +507,9 @@ public class Stables : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 2 }, { Good.Stone, 1 }, { Good.Tool, 1 } };
-        MaterialsRequired = new GoodsCollection { { Good.Iron, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Tool, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.STONE, 1 }, { Good.TOOL, 1 } };
+        MaterialsRequired = new GoodsCollection { { Good.IRON, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.TOOL, 1 } };
         BuildingEffect = null;
     }
 }
@@ -524,7 +524,7 @@ public class SteelForge : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 6 }, { Good.Stone, 8 }, { Good.Iron, 3 }, { Good.Tool, 6 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();
         BuildingEffect = ProduceSteel;
@@ -532,28 +532,28 @@ public class SteelForge : Building
 
     private void ProduceSteel(GoodsCollection goods)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Iron, 7 }, { Good.Coal, 3 } };
-        MaterialsProduced = new GoodsCollection { { Good.Iron, 12 } };
+        MaterialsRequired = new GoodsCollection { { Good.IRON, 7 }, { Good.COAL, 3 } };
+        MaterialsProduced = new GoodsCollection { { Good.IRON, 12 } };
         CoinUpkeep = 10;
     }
 
     private void ProduceTools(GoodsCollection goods)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Iron, 6 }, { Good.Coal, 3 } };
-        MaterialsProduced = new GoodsCollection { { Good.Tool, 12 } };
+        MaterialsRequired = new GoodsCollection { { Good.IRON, 6 }, { Good.COAL, 3 } };
+        MaterialsProduced = new GoodsCollection { { Good.TOOL, 12 } };
         CoinUpkeep = 15;
     }
 
     private void ProduceWeapons(GoodsCollection goods)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Iron, 10 }, { Good.Coal, 4 } };
-        MaterialsProduced = new GoodsCollection { { Good.Weapon, 10 } };
+        MaterialsRequired = new GoodsCollection { { Good.IRON, 10 }, { Good.COAL, 4 } };
+        MaterialsProduced = new GoodsCollection { { Good.WEAPON, 10 } };
         CoinUpkeep = 20;
     }
 
     private void ProduceBuildingMaterials(GoodsCollection good)
     {
-        MaterialsRequired = new GoodsCollection { { Good.Iron, 10 }, { Good.Coal, 4 }, { Good.Tool, 8 } };
+        MaterialsRequired = new GoodsCollection { { Good.IRON, 10 }, { Good.COAL, 4 }, { Good.TOOL, 8 } };
         CoinUpkeep = 20;
         //production+
     }
@@ -568,9 +568,9 @@ public class Storehouse : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -584,9 +584,9 @@ public class Tavern : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -600,9 +600,9 @@ public class Theatre : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -616,9 +616,9 @@ public class TradeDepot : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -632,9 +632,9 @@ public class University : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -648,9 +648,9 @@ public class Watermill : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -664,9 +664,9 @@ public class Weaver : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }
@@ -680,9 +680,9 @@ public class WheatFarm : Building
         CoinCost = 15;
         CoinUpkeep = 2;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Tool, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Grain, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.GRAIN, 1 } };
         BuildingEffect = null;
     }
 }
@@ -696,9 +696,9 @@ public class Woodcutter : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 1 }, { Good.Tool, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
-        MaterialsProduced = new GoodsCollection { { Good.Wood, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.WOOD, 1 } };
         BuildingEffect = null;
     }
 }
@@ -712,9 +712,9 @@ public class Workshop : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.Wood, 5 }, { Good.Stone, 2 }, { Good.Tool, 3 } };
-        MaterialsRequired = new GoodsCollection { { Good.Flax, 1 } };
-        MaterialsProduced = new GoodsCollection { { Good.Cloth, 1 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
+        MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
         BuildingEffect = null;
     }
 }

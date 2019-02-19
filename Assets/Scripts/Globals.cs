@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class Globals : MonoBehaviour
     public GameObject TimeObject;
     public GameObject TextObject;
 
+    public GameObject[] GoodsObjects;
+
     public static NextTurnModal NextTurnModal;
     public static PopupText PopupText;
     public static BuildingManager BuildingManager;
@@ -21,6 +24,8 @@ public class Globals : MonoBehaviour
 
     public static GameObject Time;
     public static GameObject Text;
+
+    public static Dictionary<Good, GameObject> Goods = new Dictionary<Good, GameObject>();
 
     private void Start()
     {
@@ -32,5 +37,14 @@ public class Globals : MonoBehaviour
 
         Time = TimeObject;
         Text = TextObject;
+
+        foreach(var g in GoodsObjects)
+        {
+            if (g == null)
+                continue;
+            var e = (Good)Enum.Parse(typeof(Good), g.name);
+            Goods.Add(e, g);
+        }
+        
     }
 }
