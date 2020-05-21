@@ -32,40 +32,39 @@ public enum Doodad
     WALL,
 }
 
-public class GridCell
-{
-    public Terrain Terrain { get; set; }
-    public Doodad Doodad { get; set; }
-    public bool HasWater { get; set; }
-    public Building Building { get; set; }
-    public SpriteRenderer Renderer { get; set; }
-    public GameObject GameObject { get; set; }
-    public bool SpriteOrigin { get; set; }  //top left origin of sprite
+//public class GridCell
+//{
+//    public Terrain Terrain { get; set; }
+//    public Doodad Doodad { get; set; }
+//    public bool HasWater { get; set; }
+//    public Building Building { get; set; }
+//    public SpriteRenderer Renderer { get; set; }
+//    public GameObject GameObject { get; set; }
+//    public bool SpriteOrigin { get; set; }  //top left origin of sprite
 
-    //TODO helper methods to assign buildings, etc
+//    public void AssignBuilding(Building b)
+//    {
+//        Building = b;
+//        Renderer.sprite = b.Sprite;
+//        Renderer.transform.localPosition = (b.SpriteSize - Vector2.one) * .5f;
+//        SpriteOrigin = true;
+//        GameObject.name = $"{GameObject.name} {b.BuildingName}";
+//    }
 
-    public void AssignBuilding(Building b)
-    {
-        Building = b;
-        Renderer.sprite = b.Sprite;
-        Renderer.transform.localPosition = (b.SpriteSize - Vector2.one) * .5f;
-        SpriteOrigin = true;
-        GameObject.name = $"{GameObject.name} {b.BuildingName}";
-    }
-
-    public void BlockNonOrigin(Building b)
-    {
-        Building = b;
-        Renderer.sprite = null;
-        Renderer.transform.localPosition = Vector2.zero;
-        SpriteOrigin = false;
-        GameObject.name = $"{GameObject.name} {b.BuildingName.Substring(0, 2)}";
-    }
-}
+//    public void BlockNonOrigin(Building b)
+//    {
+//        Building = b;
+//        Renderer.sprite = null;
+//        Renderer.transform.localPosition = Vector2.zero;
+//        SpriteOrigin = false;
+//        GameObject.name = $"{GameObject.name} {b.BuildingName.Substring(0, 2)}";
+//    }
+//}
 
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private Transform _gridParent;
+    [SerializeField] private GameObject _gridCellPrefab;
     [SerializeField] private GameObject _placement;
     [SerializeField] private SpriteRenderer _sprite;
     [SerializeField] private Vector2 _topLCoord = new Vector2(-10.5f, 11.5f);
@@ -76,17 +75,22 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
-        for (float x = -10.5f; x <= 10.5f; x++)
+        for (float y = 11.5f; y >= -9.5f; y--)
         {
-            for (float y = 11.5f; y >= -9.5f; y--)
+            for (float x = -10.5f; x <= 10.5f; x++)
             {
-                var cell = new GridCell();
-                GridMapDict[new Vector2(x, y)] = cell;
+                //var cell = new GridCell();
+                //GridMapDict[new Vector2(x, y)] = cell;
 
-                var go = Instantiate(_placement, new Vector2(x, y), Quaternion.identity);
-                cell.Renderer = go.GetComponentInChildren<SpriteRenderer>();
-                cell.Renderer.sprite = null;
-                cell.GameObject = go;
+                //var go = Instantiate(_placement, new Vector2(x, y), Quaternion.identity);
+                //cell.Renderer = go.GetComponentInChildren<SpriteRenderer>();
+                //cell.Renderer.sprite = null;
+                //cell.GameObject = go;
+                //go.transform.SetParent(_gridParent);
+                //go.name = $"[{x}:{y}]";
+
+                var go = Instantiate(_gridCellPrefab, new Vector2(x, y), Quaternion.identity);
+                GridMapDict[new Vector2(x, y)] = go.GetComponent<GridCell>();
                 go.transform.SetParent(_gridParent);
                 go.name = $"[{x}:{y}]";
             }
@@ -145,7 +149,7 @@ public class GridManager : MonoBehaviour
             {
                 for (int y = 0; y < _selectedBuilding.SpriteSize.y; y++)
                 {
-                    Debug.Log(new Vector2(v3.x + x, v3.y + y));
+                    //Debug.Log(new Vector2(v3.x + x, v3.y + y));
                     if (GridMapDict[new Vector2(v3.x + x, v3.y + y)].Building != null)
                     {
                         Debug.LogError($"{v3.x + x}:{v3.y + y} BLOCKED");
@@ -156,18 +160,16 @@ public class GridManager : MonoBehaviour
 
             GridMapDict[v3].AssignBuilding(_selectedBuilding);
 
-            //block non origin cells (x)
-            for (int i = 1; i < _selectedBuilding.SpriteSize.x; i ++)
+            //block non origin cells
+            for (int i = 0; i < _selectedBuilding.SpriteSize.x; i ++)
             {
-                var nonOrigin = v3 + new Vector2(i, 0);
-                GridMapDict[nonOrigin].BlockNonOrigin(_selectedBuilding);
-            }
-
-            //block non origin cells (y)
-            for (int i = 1; i < _selectedBuilding.SpriteSize.y; i++)
-            {
-                var nonOrigin = v3 + new Vector2(0, i);
-                GridMapDict[nonOrigin].BlockNonOrigin(_selectedBuilding);
+                for (int j = 0; j < _selectedBuilding.SpriteSize.y; j++)
+                {
+                    var nonOrigin = v3 + new Vector2(i, j);
+                    var cell = GridMapDict[nonOrigin];
+                    if (cell.Building == null)
+                        cell.BlockNonOrigin(_selectedBuilding);
+                }
             }
 
             DisableBuildingGhost();

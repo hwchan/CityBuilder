@@ -53,7 +53,7 @@ public enum BuildingEnum
 //will need another thing for each instance with coord + workers?
 public class Building
 {
-    public GameObject gObject;
+    //public GameObject gObject;
 
     public Vector2 SpriteSize { get; protected set; }
     public BuildingEnum BuildingType { get; protected set; }

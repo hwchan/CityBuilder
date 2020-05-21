@@ -36,10 +36,9 @@ public class BuildingManager : MonoBehaviour
         foreach (var key in Buildings.Keys)
         {
             Building b = Buildings[key];
-
-            b.gObject = GameObject.Find(b.BuildingName);
-            b.gObject.SetActive(false);
             b.Sprite = Resources.Load<Sprite>(b.BuildingName);
+            //b.gObject = GameObject.Find(b.BuildingName);
+            //b.gObject.SetActive(false);
 
             var btn = Instantiate(buildingButtonObject);
             btn.transform.SetParent(buildingListObject.transform);
@@ -95,19 +94,19 @@ public class BuildingManager : MonoBehaviour
         b.Initialize();
         GuiManager.UpdateBuildingDetailGui(b);
 
-        b.gObject.SetActive(true);
-        b.gObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, .5f);
-        Instantiate(Globals.Time, b.gObject.transform);
+        //b.gObject.SetActive(true);
+        //b.gObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, .5f);
+        //Instantiate(Globals.Time, b.gObject.transform);
     }
 
     private void CheckBuildingConstruction(Building b)
     {
         if (b.CurrentProduction > 0 && (b.CurrentProduction -= Globals.CityManager.Production) <= 0)
         {
-            TransitionAnimation.CreateImage(b.Sprite, b.gObject.transform.position, b.gObject.transform.localScale, b.gObject.transform.localScale*2, .75f);
+            //TransitionAnimation.CreateImage(b.Sprite, b.gObject.transform.position, b.gObject.transform.localScale, b.gObject.transform.localScale*2, .75f);
             AddBuildingLevel(b);
-            b.gObject.GetComponent<SpriteRenderer>().color = Color.white;
-            Destroy(b.gObject.transform.Find("TIME(Clone)").gameObject);
+            //b.gObject.GetComponent<SpriteRenderer>().color = Color.white;
+            //Destroy(b.gObject.transform.Find("TIME(Clone)").gameObject);
         }
     }
 
