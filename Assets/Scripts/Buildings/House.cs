@@ -4,12 +4,13 @@ using System.Linq;
 
 public class House : Building
 {
+    public int CultureRequirement { get; set; }
+
     public House()
     {
         BuildingName = "house";
         Tier = 1;
         CoinCost = 15;
-        //CoinUpkeep = -10;
         ProductionCost = 1;
         WorkerCapacity = 0;
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 } };
@@ -18,7 +19,7 @@ public class House : Building
         BuildingEffect = null;
     }
 
-    private Building GetHouseStats(int level)
+    private House GetHouseStats(int level)
     {
         var b = new House { Level = level };
 
@@ -70,7 +71,7 @@ public class House : Building
 
     private Building GetHighestLevelHouse(GoodsCollection inventory)
     {
-        Building b = GetHouseStats(Level);
+        House b = GetHouseStats(Level);
 
         //find the highest level of House we can support with our goods
         for (int i = Level; i > 0; i--)
@@ -82,6 +83,12 @@ public class House : Building
                 if (inventory[good] < b.MaterialsRequired[good])
                     canSupport = false;
             }
+
+            if (b.CultureRequirement > Globals.CityManager.Culture)
+            {
+                canSupport = false;
+            }
+
             if (canSupport)
             {
                 //we have the highest level of House we can support

@@ -66,16 +66,20 @@
     <Compile Include="Assets\Scripts\Buildings\RawGoodsBuilding.cs" />
     <Compile Include="Assets\Scripts\BuildingsCollection.cs" />
     <Compile Include="Assets\Scripts\CityManager.cs" />
+    <Compile Include="Assets\Scripts\GameEventManager.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
     <Compile Include="Assets\Scripts\Goods\Good.cs" />
     <Compile Include="Assets\Scripts\GoodsCollection.cs" />
+    <Compile Include="Assets\Scripts\GridManager.cs" />
     <Compile Include="Assets\Scripts\GuiManager.cs" />
+    <Compile Include="Assets\Scripts\MissionManager.cs" />
     <Compile Include="Assets\Scripts\UI\BuildingButton.cs" />
     <Compile Include="Assets\Scripts\UI\ChangeWorkersButton.cs" />
     <Compile Include="Assets\Scripts\UI\ImproveBuildingButton.cs" />
     <Compile Include="Assets\Scripts\UI\NextTurnButton.cs" />
     <Compile Include="Assets\Scripts\UI\NextTurnModal.cs" />
     <Compile Include="Assets\Scripts\UI\PopupText.cs" />
+    <Compile Include="Assets\Scripts\UI\TransitionAnimation.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/hwc/Documents/GitHub/CityBuilder/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

@@ -23,10 +23,10 @@ public class PopupText : MonoBehaviour
 
     private IEnumerator PopUpCoroutine(int fadeTime)
     {
-        _image.CrossFadeAlpha(1, 1, false);
-        _text.CrossFadeAlpha(1, 1, false);
+        _image.CrossFadeAlpha(1, .35f, false);
+        _text.CrossFadeAlpha(1, .35f, false);
         yield return new WaitForSeconds(fadeTime);
-        _image.CrossFadeAlpha(0, 1, false);
-        _text.CrossFadeAlpha(0, 1, false);
+        _image.CrossFadeAlpha(0, .75f, false);
+        _text.CrossFadeAlpha(0, .75f, false);
     }
 }

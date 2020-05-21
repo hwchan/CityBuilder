@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
-public class BuildingManager : MonoBehaviour {
-
+public class BuildingManager : MonoBehaviour
+{
     public CityManager CityManager;
 
     public Building CurrentBuilding { get; private set; }
@@ -12,84 +13,56 @@ public class BuildingManager : MonoBehaviour {
     public GameObject buildingListObject;
 
     public GoodsCollection Inventory { get; set; }
-    public List<Building> Buildings { get; set; }
+    public BuildingsCollection Buildings { get; set; }
 
+    //TODO this shouldn't be here
     public GoodsCollection IncomeInventory { get; set; }
 
-    public Building this[string index]
-    {
-        get { return Buildings.Find(x => x.BuildingName.ToUpper() == index.ToUpper()); }
-    }
+    [SerializeField] private Button[] _modeButtons = new Button[4];
 
-    // Use this for initialization
     void Start ()
     {
         IncomeInventory = new GoodsCollection(0);
-        Inventory = new GoodsCollection(10);
+        Inventory = new GoodsCollection(100);
         GuiManager.UpdateGui(Inventory);
+        Buildings = new BuildingsCollection();
 
-        Buildings = new List<Building>()
+        Inventory.OnCollectionChange += (collection, args) => 
         {
-            new Bakery(),
-            new Bank(),
-            new Barracks(),
-            new Brewery(),
-            new Castle(),
-            new Chapel(),
-            new ClayPit(),
-            new CoalMine(),
-            new ConstructionGuild(),
-            new Courthouse(),
-            new FishingWharf(),
-            new FlaxFarm(),
-            new GoldMine(),
-            new Granary(),
-            new HuntingLodge(),
-            new IronMine(),
-            new Leatherwork(),
-            new Library(),
-            new Lighthouse(),
-            new Lumbermill(),
-            new Market(),
-            new Physician(),
-            new PigFarm(),
-            new Potter(),
-            new Prison(),
-            new Quarry(),
-            new Shipyard(),
-            new Smithy(),
-            new Stables(),
-            new SteelForge(),
-            new Storehouse(),
-            new Tavern(),
-            new Theatre(),
-            new TradeDepot(),
-            new University(),
-            new Watermill(),
-            new Weaver(),
-            new WheatFarm(),
-            new Woodcutter(),
-            new Workshop(),
-            new House(),
+            //Debug.Log(args.Good + (args.Value > 0 ? ": +" + args.Value : ": " + args.Value));
+            GuiManager.UpdateGui(Inventory);
         };
-        
-        foreach(Building b in Buildings)
+
+        foreach (var key in Buildings.Keys)
         {
+            Building b = Buildings[key];
+
             b.gObject = GameObject.Find(b.BuildingName);
             b.gObject.SetActive(false);
             b.Sprite = Resources.Load<Sprite>(b.BuildingName);
+
             var btn = Instantiate(buildingButtonObject);
             btn.transform.SetParent(buildingListObject.transform);
             btn.transform.localScale = Vector3.one;
+
             var bb = btn.GetComponent<BuildingButton>();
             bb.InitializeBuildingButton(this, b);
             b.BuildingButton = bb;
         }
+
+        _modeButtons[0].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(0); });
+        _modeButtons[1].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(1); });
+        _modeButtons[2].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(2); });
+        _modeButtons[3].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(3); });
     }
 
-    public Building SetCurrentBuilding(string buildingText)
+    public Building SetCurrentBuilding(BuildingEnum b)
     {
-        CurrentBuilding = this[buildingText];
+        CurrentBuilding = Buildings[b];
+        for (int i = 0; i < _modeButtons.Length; i++)
+        {
+            _modeButtons[i].gameObject.SetActive(i <= CurrentBuilding.BuildingEffects.Count - 1);
+        }
         return CurrentBuilding;
     }
 
@@ -115,6 +88,9 @@ public class BuildingManager : MonoBehaviour {
             return;
         }
 
+        //TODO:
+        Globals.GridManager.EnableBuildingGhost(b);
+
         CityManager.AddCoin(-b.CoinCost);
         b.Initialize();
         GuiManager.UpdateBuildingDetailGui(b);
@@ -126,8 +102,9 @@ public class BuildingManager : MonoBehaviour {
 
     private void CheckBuildingConstruction(Building b)
     {
-        if (b.CurrentProduction > 0 && --b.CurrentProduction <= 0)
+        if (b.CurrentProduction > 0 && (b.CurrentProduction -= Globals.CityManager.Production) <= 0)
         {
+            TransitionAnimation.CreateImage(b.Sprite, b.gObject.transform.position, b.gObject.transform.localScale, b.gObject.transform.localScale*2, .75f);
             AddBuildingLevel(b);
             b.gObject.GetComponent<SpriteRenderer>().color = Color.white;
             Destroy(b.gObject.transform.Find("TIME(Clone)").gameObject);
@@ -146,23 +123,38 @@ public class BuildingManager : MonoBehaviour {
     public void HandleBuildingsOnEndTurn()
     {
         int incomeGold = 0;
+        int culture = 0;
         var prevGoods = new GoodsCollection(Inventory);
 
-        foreach (Building b in Buildings)
+        foreach (var key in Buildings.Keys)
         {
+            var b = Buildings[key];
             b.HandleGoods(Inventory);
             incomeGold -= b.GetUpkeep(Inventory);
             CheckBuildingConstruction(b);
             b.BuildingButton.UpdateBuildingButton();
+            culture += b.Culture;
         }
 
         CityManager.AddCoin(incomeGold);
         CityManager.SetIncome(incomeGold);
+        CityManager.SetCulture(culture);
         
         GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
 
         //calculate the difference in resources
-        IncomeInventory = Inventory - prevGoods;
-        GuiManager.UpdateGui(Inventory);
+        IncomeInventory = new GoodsCollection(Inventory);
+        IncomeInventory.Subtract(prevGoods);
+        //GuiManager.UpdateGui(Inventory);  //NO NEED WITH OnCollectionChange HOHOHO 
+    }
+
+    private void OnModeButtonClick(int index)
+    {
+        if (index < CurrentBuilding.BuildingEffects.Count)
+        {
+            CurrentBuilding.BuildingEffect = CurrentBuilding.BuildingEffects[index];
+            CurrentBuilding.BuildingEffect?.Invoke(Inventory);
+            GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
+        }
     }
 }

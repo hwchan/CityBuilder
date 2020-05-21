@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class CityManager : MonoBehaviour {
+public class CityManager : MonoBehaviour
+{
 
     public int Income { get; private set; }
 
@@ -11,6 +12,7 @@ public class CityManager : MonoBehaviour {
     public int Culture { get; private set; }
     public int Science { get; private set; }
     public int Safety { get; private set; }
+    public int Production { get; private set; } = 2;
     public int Turns { get; private set; }
 
     public int Unemployed { get; private set; }
@@ -72,6 +74,20 @@ public class CityManager : MonoBehaviour {
         Unemployed += val;
         _populationText.text = $"{Unemployed} / {Population}";
         return true;
+    }
+
+    public int SetProduction(int val)
+    {
+        Production = val;
+        //_productionText.text = Production.ToString();
+        return Production;
+    }
+
+    public int SetCulture(int val)
+    {
+        Culture = val;
+        _cultureText.text = Culture.ToString();
+        return Culture;
     }
 
     public int AddCulture(int val)

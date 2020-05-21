@@ -2,9 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class NextTurnButton : MonoBehaviour {
+public class NextTurnButton : MonoBehaviour
+{
+    private GoodsCollection _collection = new GoodsCollection(0);
 
-	void Start () {
+	void Start ()
+    {
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 	
@@ -12,7 +15,13 @@ public class NextTurnButton : MonoBehaviour {
     {
         Globals.BuildingManager.HandleBuildingsOnEndTurn();
         Globals.CityManager.AddTurns(1);
-        //TODO: should this be kept?
-        //Globals.NextTurnModal.ShowNextTurnModal();
+
+        //TODO: refactor this to somewhere else
+        _collection.Add(Globals.BuildingManager.IncomeInventory);
+        if (Globals.CityManager.Turns % 4 == 0)
+        {
+            Globals.NextTurnModal.ShowNextTurnModal(_collection, Globals.GameEventManager.GetText());
+            _collection = new GoodsCollection(0);
+        }
     }
 }

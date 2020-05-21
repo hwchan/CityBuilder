@@ -2,8 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class NextTurnModal : MonoBehaviour {
-
+public class NextTurnModal : MonoBehaviour
+{
+    [SerializeField] private Text _eventText = default;
     public Button OkButton;
 
     public GameObject _inventoryModalPanel;
@@ -27,7 +28,8 @@ public class NextTurnModal : MonoBehaviour {
     private Text _artisanChange;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _woodChange = _inventoryModalPanel.transform.Find("WOOD").Find("WoodChange").GetComponent<Text>();
         _stoneChange = _inventoryModalPanel.transform.Find("STONE").Find("StoneChange").GetComponent<Text>();
         _ironChange = _inventoryModalPanel.transform.Find("IRON").Find("IronChange").GetComponent<Text>();
@@ -48,31 +50,28 @@ public class NextTurnModal : MonoBehaviour {
 
         OkButton.onClick.AddListener(() => { gameObject.SetActive(false); });
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-	}
 
-    public void ShowNextTurnModal()
+    public void ShowNextTurnModal(GoodsCollection goods, string text = null)    //TODO prob don't pass in text like this
     {
         gameObject.SetActive(true);
-        foreach (var i in Globals.BuildingManager.IncomeInventory.Keys)
+        foreach (var i in goods.Keys)
         {
-            UpdateGoodIncomeText(i, Globals.BuildingManager.IncomeInventory[i]);
+            UpdateGoodIncomeText(i, goods[i]);
         }
+        _eventText.text = text;
     }
 
     public void UpdateGoodIncomeText(Good good, int value)
     {
-        var foo = _inventoryModalPanel.transform.Find(good.ToString().ToUpper());
+        Transform goodTransform = _inventoryModalPanel.transform.Find(good.ToString().ToUpper());
         if (value == 0)
         {
-            foo.gameObject.SetActive(false);
+            goodTransform.gameObject.SetActive(false);
             return;
         }
-        foo.gameObject.SetActive(true);
+        goodTransform.gameObject.SetActive(true);
         string txt = value > 0 ? "+" + value : value.ToString();
-        foo.Find(good + "Change").GetComponent<Text>().text = txt;
+        string hack = char.ToUpper(good.ToString()[0]) + good.ToString().ToLower().Substring(1);  //hack for PascalCase
+        goodTransform.Find(hack + "Change").GetComponent<Text>().text = txt;
     }
 }

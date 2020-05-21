@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class GuiManager : MonoBehaviour {
+public class GuiManager : MonoBehaviour
+{
 
     public static GameObject Panel;
     public static GameObject InventoryPanel;
@@ -27,15 +28,7 @@ public class GuiManager : MonoBehaviour {
         Panel.transform.Find("UpkeepText").GetComponent<Text>().text = "UPKEEP   G" + building.CoinUpkeep;
         Panel.transform.Find("LevelText").GetComponent<Text>().text = "LEVEL   " + building.Level;
         Panel.transform.Find("RequireText").GetComponent<Text>().text = "REQUIRE   " + building.MaterialsRequired;
-        Panel.transform.Find("ProduceText").GetComponent<Text>().text = "PRODUCE   " + building.MaterialsProduced;
-
-        //construction cost
-        //Panel.transform.Find("WOOD").GetComponent<Text>().text = building.BuildingCost[Good.WOOD].ToString();
-        //Panel.transform.Find("STONE").GetComponent<Text>().text = building.BuildingCost[Good.STONE].ToString();
-        //Panel.transform.Find("IRON").GetComponent<Text>().text = building.BuildingCost[Good.IRON].ToString();
-        //Panel.transform.Find("TOOL").GetComponent<Text>().text = building.BuildingCost[Good.TOOL].ToString();
-        //Panel.transform.Find("COIN").GetComponent<Text>().text = building.CoinCost.ToString();
-        //Panel.transform.Find("TIME").GetComponent<Text>().text = building.ProductionCost.ToString();
+        Panel.transform.Find("ProduceText").GetComponent<Text>().text = "PRODUCE   " + building.GetMaterialsProducedString();//.MaterialsProducedString;
 
         foreach (Transform t in ConstructionCostPanel.transform)
         {
@@ -63,19 +56,6 @@ public class GuiManager : MonoBehaviour {
             }
         }
 
-        //foreach (var kvp in building.BuildingCost)
-        //{
-        //    Transform t = ConstructionCostPanel.transform.Find(kvp.Key.ToString());
-        //    t.gameObject.SetActive(true);
-        //    t.Find("Text").GetComponent<Text>().text = kvp.Value.ToString();
-        //}
-
-
-
-
-
-
-
         Panel.transform.Find("WorkersText").GetComponent<Text>().text = $"{building.Workers} / {building.WorkerCapacity}";
 
         if (building.CurrentProduction > 0)
@@ -87,7 +67,6 @@ public class GuiManager : MonoBehaviour {
         {
             Panel.transform.Find("TimeLeftText").gameObject.SetActive(false);
         }
-        
     }
 
     public static void UpdateGui(GoodsCollection inventory)

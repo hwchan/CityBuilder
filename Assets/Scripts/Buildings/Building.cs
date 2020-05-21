@@ -5,12 +5,60 @@ using System.Linq;
 using System;
 using UnityEngine.UI;
 
-public class Building {
+public enum BuildingEnum
+{
+    BAKERY,
+    BANK,
+    BARRACKS,
+    BREWERY,
+    CASTLE,
+    CHAPEL,
+    CLAY_PIT,
+    COAL_MINE,
+    CONSTRUCTION_GUILD,
+    COURTHOUSE,
+    FISHING_WHARF,
+    FLAX_FARM,
+    GOLD_MINE,
+    GRANARY,
+    HUNTING_LODGE,
+    IRON_MINE,
+    LEATHERWORK,
+    LIBRARY,
+    LIGHTHOUSE,
+    LUMBERMILL,
+    MARKET,
+    PHYSICIAN,
+    PIG_FARM,
+    POTTER,
+    PRISON,
+    QUARRY,
+    SHIPYARD,
+    SMITHY,
+    STABLES,
+    STEEL_FORGE,
+    STOREHOUSE,
+    TAVERN,
+    THEATRE,
+    TRADE_DEPOT,
+    UNIVERSITY,
+    WATERMILL,
+    WEAVER,
+    WHEAT_FARM,
+    WOODCUTTER,
+    WORKSHOP,
+}
 
+//this is like a BuildingTemplate - 1 of each building type
+//will need another thing for each instance with coord + workers?
+public class Building
+{
     public GameObject gObject;
 
+    public Vector2 SpriteSize { get; protected set; }
+    public BuildingEnum BuildingType { get; protected set; }
     public string BuildingName { get; set; }
-    public virtual int Level { get; protected set; }
+    public virtual int Level { get; protected set; }    //is sorta count - each time we improve, Level++
     public int Tier { get; set; }   //civ tier
     public int CoinCost { get; set; }
     public int CoinUpkeep { get; set; }
@@ -18,18 +66,24 @@ public class Building {
     public int WorkerCapacity { get; set; }
     public int Workers { get; protected set; }
     public int PopulationIncrease { get; protected set; } = 0;
+    public int Culture { get; protected set; }
     public GoodsCollection BuildingCost { get; set; }
     public GoodsCollection MaterialsRequired { get; set; }
     public GoodsCollection MaterialsProduced { get; set; }
     public Action<GoodsCollection> BuildingEffect { get; set; }
 
+    public List<Action<GoodsCollection>> BuildingEffects { get; set; } = new List<Action<GoodsCollection>>();
+
     public Sprite Sprite { get; set; }
     public BuildingButton BuildingButton { get; set; }
     public int CurrentProduction { get; set; }
 
+    //public string MaterialsProducedString { get; set; }
+
     public void Initialize()
     {
         CurrentProduction = ProductionCost;
+        //MaterialsProducedString = MaterialsProduced.ToString();
     }
 
     public bool TryAddWorker(int val)
@@ -44,9 +98,6 @@ public class Building {
 
     public virtual bool HandleGoods(GoodsCollection inventory)
     {
-        if (MaterialsRequired.Keys.Count > 0)
-            return true;
-
         for (int i = 0; i < Workers; i++)
         {
             //check required materials
@@ -108,5 +159,10 @@ public class Building {
         }
 
         return missingGoods;
+    }
+
+    public virtual string GetMaterialsProducedString()
+    {
+        return MaterialsProduced.ToString();
     }
 }

@@ -10,9 +10,15 @@ public class Globals : MonoBehaviour
     public GameObject BuildingMangerObj;
     public GameObject CityManagerObj;
     public GameObject GuiManagerObj;
+    public GameObject GameEventManagerObj;
+    public GameObject MissionManagerObj;
+    public GameObject GridManagerObj;
 
     public GameObject TimeObject;
     public GameObject TextObject;
+    public GameObject ExpiryObject;
+
+    [SerializeField] private GameObject _transitionAnimationPanel = default;
 
     public GameObject[] GoodsObjects;
 
@@ -21,9 +27,15 @@ public class Globals : MonoBehaviour
     public static BuildingManager BuildingManager;
     public static CityManager CityManager;
     public static GuiManager GuiManager;
+    public static GameEventManager GameEventManager;
+    public static MissionManager MissionManager;
+    public static GridManager GridManager;
 
     public static GameObject Time;
     public static GameObject Text;
+    public static GameObject Expiry;
+
+    public static GameObject TransitionAnimationPanel;
 
     public static Dictionary<Good, GameObject> Goods = new Dictionary<Good, GameObject>();
 
@@ -34,11 +46,17 @@ public class Globals : MonoBehaviour
         BuildingManager = BuildingMangerObj.GetComponent<BuildingManager>();
         CityManager = CityManagerObj.GetComponent<CityManager>();
         GuiManager = GuiManagerObj.GetComponent<GuiManager>();
+        GameEventManager = GameEventManagerObj.GetComponent<GameEventManager>();
+        MissionManager = MissionManagerObj.GetComponent<MissionManager>();
+        GridManager = GridManagerObj.GetComponent<GridManager>();
 
         Time = TimeObject;
         Text = TextObject;
+        Expiry = ExpiryObject;
 
-        foreach(var g in GoodsObjects)
+        TransitionAnimationPanel = _transitionAnimationPanel;
+
+        foreach (var g in GoodsObjects)
         {
             if (g == null)
                 continue;

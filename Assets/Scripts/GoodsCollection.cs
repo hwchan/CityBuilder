@@ -1,9 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-public class GoodsCollection : Dictionary<Good, int> {
+public class GoodsCollectionEventArgs : EventArgs
+{
+    public Good Good { get; set; }
+    public int Value { get; set; }
+}
+
+public class GoodsCollection : Dictionary<Good, int>
+{
+    public event EventHandler<GoodsCollectionEventArgs> OnCollectionChange;
 
     public GoodsCollection()
     {
@@ -55,10 +62,20 @@ public class GoodsCollection : Dictionary<Good, int> {
         }
         set
         {
+            int delta = 0;
+
             if (ContainsKey(good))
+            {
+                delta = value - base[good];
                 base[good] = value;
+            }
             else
+            {
+                delta = value;
                 Add(good, value);
+            }
+
+            OnCollectionChange?.Invoke(this, new GoodsCollectionEventArgs { Good = good, Value = delta });
         }
     }
 
@@ -67,16 +84,28 @@ public class GoodsCollection : Dictionary<Good, int> {
         return good + ": " + this[good];
     }
 
-    public static GoodsCollection operator- (GoodsCollection a, GoodsCollection b)
+    public void Add(GoodsCollection b)
     {
-        var ret = new GoodsCollection(a);
+        if (b == null)
+            return;
 
         foreach (var key in b.Keys)
         {
-            ret[key] -= b[key];
+            if (b[key] != 0)
+                this[key] += b[key];
         }
+    }
 
-        return ret;
+    public void Subtract(GoodsCollection b)
+    {
+        if (b == null)
+            return;
+
+        foreach (var key in b.Keys)
+        {
+            if (b[key] != 0)
+                this[key] -= b[key];
+        }
     }
 
     public override string ToString()
