@@ -115,6 +115,7 @@ public class GridManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            HandleBuildingClick();
             HandlePlaceBuilding(v3);
         }
 
@@ -138,6 +139,27 @@ public class GridManager : MonoBehaviour
         _placement.SetActive(false);
         _selectedBuilding = null;
         _sprite.sprite = null;
+    }
+
+    //TODO move this elsewhere
+    private void HandleBuildingClick()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 10;
+        Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
+        RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
+
+        if (hit)
+        {
+            //print(hit.collider.name);
+            var cell = hit.transform.GetComponent<GridCell>();
+            if (cell && cell.Building != null)
+            {
+                //TODO this is also in BuildingButton
+                GuiManager.UpdateBuildingDetailGui(cell.Building);
+                Globals.BuildingManager.SetCurrentBuilding(cell.Building.BuildingType);
+            }
+        }
     }
 
     private void HandlePlaceBuilding(Vector2 v3)

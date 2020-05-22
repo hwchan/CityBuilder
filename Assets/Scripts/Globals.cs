@@ -18,7 +18,8 @@ public class Globals : MonoBehaviour
     public GameObject TextObject;
     public GameObject ExpiryObject;
 
-    [SerializeField] private GameObject _transitionAnimationPanel = default;
+    [SerializeField] private GameObject _transitionAnimationPanel;
+    [SerializeField] private Camera _camera;
 
     public GameObject[] GoodsObjects;
 
@@ -36,6 +37,7 @@ public class Globals : MonoBehaviour
     public static GameObject Expiry;
 
     public static GameObject TransitionAnimationPanel;
+    public static Camera Camera;
 
     public static Dictionary<Good, GameObject> Goods = new Dictionary<Good, GameObject>();
 
@@ -55,6 +57,7 @@ public class Globals : MonoBehaviour
         Expiry = ExpiryObject;
 
         TransitionAnimationPanel = _transitionAnimationPanel;
+        Camera = _camera;
 
         foreach (var g in GoodsObjects)
         {
