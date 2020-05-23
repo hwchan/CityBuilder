@@ -1,5 +1,84 @@
 ﻿using System.Collections.Generic;
+using System;
 using System.Text;
+
+public class BuildingsCollection2
+{
+    private Dictionary<BuildingEnum, List<Building>> _dictionary;
+
+    public BuildingsCollection2()
+    {
+        _dictionary = new Dictionary<BuildingEnum, List<Building>>();
+
+        foreach (var bEnum in (BuildingEnum[])Enum.GetValues(typeof(BuildingEnum)))
+        {
+            _dictionary.Add(bEnum, new List<Building>());
+        }
+    }
+
+    public void Add(Building b)
+    {
+        _dictionary[b.BuildingType].Add(b);
+    }
+
+    public void Remove(Building b)
+    {
+        _dictionary[b.BuildingType].Remove(b);
+    }
+
+    public List<Building> this[BuildingEnum b] => _dictionary[b];
+
+    public GoodsCollection HandleBuildingsOnEndTurn(GoodsCollection Inventory)
+    {
+        int incomeGold = 0;
+        int culture = 0;
+        var prevGoods = new GoodsCollection(Inventory);
+
+        foreach (var kvp in _dictionary)
+        {
+            for (int i = 0; i < kvp.Value.Count; i++)
+            {
+                Building b = kvp.Value[i];
+                b.HandleGoods(Inventory);
+                incomeGold -= b.GetUpkeep(Inventory);
+                culture += b.Culture;
+
+                CheckBuildingConstruction(b);
+
+                //if (i == kvp.Value.Count - 1)
+                //    b.BuildingButton.UpdateBuildingButton();
+            }
+        }
+
+        Globals.CityManager.AddCoin(incomeGold);
+        Globals.CityManager.SetIncome(incomeGold);
+        Globals.CityManager.SetCulture(culture);
+
+        //calculate the difference in resources
+        var IncomeInventory = new GoodsCollection(Inventory);
+        IncomeInventory.Subtract(prevGoods);
+        //GuiManager.UpdateGui(Inventory);  //NO NEED WITH OnCollectionChange HOHOHO 
+        return IncomeInventory;
+    }
+
+    private void CheckBuildingConstruction(Building b)
+    {
+        if (b.CurrentProduction > 0 && (b.CurrentProduction -= Globals.CityManager.Production) <= 0)
+        {
+            //TransitionAnimation.CreateImage(b.Sprite, b.gObject.transform.position, b.gObject.transform.localScale, b.gObject.transform.localScale*2, .75f);
+            //b.gObject.GetComponent<SpriteRenderer>().color = Color.white;
+            //Destroy(b.gObject.transform.Find("TIME(Clone)").gameObject);
+
+            //if (b == null)
+            //    b = CurrentBuilding;
+
+            b.AddLevel(1);
+            b.BuildingButton.OnClick();
+            Globals.CityManager.AddCoin(-b.CoinCost);
+            Globals.CityManager.SetIncome(Globals.CityManager.Income - b.CoinUpkeep);
+        }
+    }
+}
 
 public class BuildingsCollection : Dictionary<BuildingEnum, Building>
 {
