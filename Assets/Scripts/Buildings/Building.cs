@@ -49,11 +49,28 @@ public enum BuildingEnum
     WORKSHOP,
 }
 
+//TODO replace dictionary key of BuildingEnum, use this
+public struct BuildingBlueprint
+{
+    public string BuildingName { get; private set; }
+    public Sprite Sprite { get; private set; }
+    public Vector2 SpriteSize { get; private set; }
+
+    public BuildingBlueprint(string name, Vector2 size)
+    {
+        BuildingName = name;
+        SpriteSize = size;
+        Sprite = Resources.Load<Sprite>(BuildingName);
+    }
+}
+
 //this is like a BuildingTemplate - 1 of each building type
 //will need another thing for each instance with coord + workers?
+//NVM
 public class Building
 {
     //public GameObject gObject;
+    public GridCell GridCell { get; set; }  //TODO this is bi-directional - keep this?
 
     public Vector2 SpriteSize { get; protected set; }
     public BuildingEnum BuildingType { get; protected set; }
@@ -79,6 +96,11 @@ public class Building
     public int CurrentProduction { get; set; }
 
     //public string MaterialsProducedString { get; set; }
+
+    //public Building()
+    //{
+    //    Sprite = Resources.Load<Sprite>(BuildingName);
+    //}
 
     public void Initialize()
     {
@@ -117,8 +139,7 @@ public class Building
                     inventory[good] += MaterialsProduced[good];
             }
 
-            if (BuildingEffect != null)
-                BuildingEffect(inventory);
+                BuildingEffect?.Invoke(inventory);
         }
 
         return true;

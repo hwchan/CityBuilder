@@ -49,8 +49,10 @@ public class MissionData
         {
             foreach (var building in BuildingsRequired)
             {
-                var foundBuilding = Globals.BuildingManager.Buildings[building.BuildingType];
-                if (foundBuilding.Level < 1)
+                //var foundBuilding = Globals.BuildingManager.Buildings2[building.BuildingType];
+                //if (foundBuilding.Level < 1)
+                //    return false;
+                if (Globals.BuildingManager.Buildings2[building.BuildingType].Count < 1)
                     return false;
             }
         }

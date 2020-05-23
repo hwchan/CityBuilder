@@ -58,15 +58,15 @@ public class GuiManager : MonoBehaviour
 
         Panel.transform.Find("WorkersText").GetComponent<Text>().text = $"{building.Workers} / {building.WorkerCapacity}";
 
-        if (building.CurrentProduction > 0)
-        {
-            Panel.transform.Find("TimeLeftText").gameObject.SetActive(true);
-            Panel.transform.Find("TimeLeftText").GetComponent<Text>().text = building.CurrentProduction.ToString();
-        }
-        else
-        {
-            Panel.transform.Find("TimeLeftText").gameObject.SetActive(false);
-        }
+        //if (building.CurrentProduction > 0)
+        //{
+        //    Panel.transform.Find("TimeLeftText").gameObject.SetActive(true);
+        //    Panel.transform.Find("TimeLeftText").GetComponent<Text>().text = building.CurrentProduction.ToString();
+        //}
+        //else
+        //{
+        //    Panel.transform.Find("TimeLeftText").gameObject.SetActive(false);
+        //}
     }
 
     public static void UpdateGui(GoodsCollection inventory)

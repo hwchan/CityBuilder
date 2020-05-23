@@ -13,7 +13,8 @@ public class BuildingManager : MonoBehaviour
     public GameObject buildingListObject;
 
     public GoodsCollection Inventory { get; set; }
-    public BuildingsCollection Buildings { get; set; }
+    public BuildingsCollection Buildings { get; set; }  //TODO
+    public BuildingsCollection2 Buildings2 { get; set; }
 
     //TODO this shouldn't be here
     public GoodsCollection IncomeInventory { get; set; }
@@ -25,7 +26,7 @@ public class BuildingManager : MonoBehaviour
         IncomeInventory = new GoodsCollection(0);
         Inventory = new GoodsCollection(100);
         GuiManager.UpdateGui(Inventory);
-        Buildings = new BuildingsCollection();
+        Buildings2 = new BuildingsCollection2();
 
         Inventory.OnCollectionChange += (collection, args) => 
         {
@@ -33,12 +34,12 @@ public class BuildingManager : MonoBehaviour
             GuiManager.UpdateGui(Inventory);
         };
 
+        //TODO
+        Buildings = new BuildingsCollection();
         foreach (var key in Buildings.Keys)
         {
             Building b = Buildings[key];
             b.Sprite = Resources.Load<Sprite>(b.BuildingName);
-            //b.gObject = GameObject.Find(b.BuildingName);
-            //b.gObject.SetActive(false);
 
             var btn = Instantiate(buildingButtonObject);
             btn.transform.SetParent(buildingListObject.transform);
@@ -65,17 +66,17 @@ public class BuildingManager : MonoBehaviour
         return CurrentBuilding;
     }
 
-    public int AddBuildingLevel(Building building)
-    {
-        if (building == null)
-            building = CurrentBuilding;
+    //public int AddBuildingLevel(Building building)
+    //{
+    //    if (building == null)
+    //        building = CurrentBuilding;
 
-        building.AddLevel(1);
-        building.BuildingButton.OnClick();
-        CityManager.AddCoin(-building.CoinCost);
-        CityManager.SetIncome(CityManager.Income - building.CoinUpkeep);
-        return building.Level;
-    }
+    //    building.AddLevel(1);
+    //    building.BuildingButton.OnClick();
+    //    CityManager.AddCoin(-building.CoinCost);
+    //    CityManager.SetIncome(CityManager.Income - building.CoinUpkeep);
+    //    return building.Level;
+    //}
 
     public void StartBuildingConstruction(Building b)
     {
@@ -87,28 +88,28 @@ public class BuildingManager : MonoBehaviour
             return;
         }
 
-        //TODO:
+        //TODO START HACK we need that BuildingBlueprint to create a new Building()
+        b = (Building)System.Activator.CreateInstance(b.GetType());
+        b.Sprite = Resources.Load<Sprite>(b.BuildingName);
+        //END HACK
+
+
+        b.CurrentProduction = b.ProductionCost;
         Globals.GridManager.EnableBuildingGhost(b);
+        Buildings2.Add(b);
 
         CityManager.AddCoin(-b.CoinCost);
         b.Initialize();
         GuiManager.UpdateBuildingDetailGui(b);
-
-        //b.gObject.SetActive(true);
-        //b.gObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, .5f);
-        //Instantiate(Globals.Time, b.gObject.transform);
     }
 
-    private void CheckBuildingConstruction(Building b)
-    {
-        if (b.CurrentProduction > 0 && (b.CurrentProduction -= Globals.CityManager.Production) <= 0)
-        {
-            //TransitionAnimation.CreateImage(b.Sprite, b.gObject.transform.position, b.gObject.transform.localScale, b.gObject.transform.localScale*2, .75f);
-            AddBuildingLevel(b);
-            //b.gObject.GetComponent<SpriteRenderer>().color = Color.white;
-            //Destroy(b.gObject.transform.Find("TIME(Clone)").gameObject);
-        }
-    }
+    //private void CheckBuildingConstruction(Building b)
+    //{
+    //    if (b.CurrentProduction > 0 && (b.CurrentProduction -= Globals.CityManager.Production) <= 0)
+    //    {
+    //        AddBuildingLevel(b);
+    //    }
+    //}
 
     public void AddWorkers(int val, Building b)
     {
@@ -121,30 +122,32 @@ public class BuildingManager : MonoBehaviour
 
     public void HandleBuildingsOnEndTurn()
     {
-        int incomeGold = 0;
-        int culture = 0;
-        var prevGoods = new GoodsCollection(Inventory);
+        //int incomeGold = 0;
+        //int culture = 0;
+        //var prevGoods = new GoodsCollection(Inventory);
 
-        foreach (var key in Buildings.Keys)
-        {
-            var b = Buildings[key];
-            b.HandleGoods(Inventory);
-            incomeGold -= b.GetUpkeep(Inventory);
-            CheckBuildingConstruction(b);
-            b.BuildingButton.UpdateBuildingButton();
-            culture += b.Culture;
-        }
+        //foreach (var key in Buildings.Keys)
+        //{
+        //    var b = Buildings[key];
+        //    b.HandleGoods(Inventory);
+        //    incomeGold -= b.GetUpkeep(Inventory);
+        //    CheckBuildingConstruction(b);
+        //    b.BuildingButton.UpdateBuildingButton();
+        //    culture += b.Culture;
+        //}
 
-        CityManager.AddCoin(incomeGold);
-        CityManager.SetIncome(incomeGold);
-        CityManager.SetCulture(culture);
-        
-        GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
+        //CityManager.AddCoin(incomeGold);
+        //CityManager.SetIncome(incomeGold);
+        //CityManager.SetCulture(culture);
 
-        //calculate the difference in resources
-        IncomeInventory = new GoodsCollection(Inventory);
-        IncomeInventory.Subtract(prevGoods);
-        //GuiManager.UpdateGui(Inventory);  //NO NEED WITH OnCollectionChange HOHOHO 
+        //GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
+
+        ////calculate the difference in resources
+        //IncomeInventory = new GoodsCollection(Inventory);
+        //IncomeInventory.Subtract(prevGoods);
+        ////GuiManager.UpdateGui(Inventory);  //NO NEED WITH OnCollectionChange HOHOHO 
+
+        IncomeInventory = Buildings2.HandleBuildingsOnEndTurn(Inventory);
     }
 
     private void OnModeButtonClick(int index)

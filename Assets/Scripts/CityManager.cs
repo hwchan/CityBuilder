@@ -12,7 +12,7 @@ public class CityManager : MonoBehaviour
     public int Culture { get; private set; }
     public int Science { get; private set; }
     public int Safety { get; private set; }
-    public int Production { get; private set; } = 2;
+    public int Production { get; private set; } = 1;
     public int Turns { get; private set; }
 
     public int Unemployed { get; private set; }

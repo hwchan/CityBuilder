@@ -21,6 +21,8 @@ public class GridCell : MonoBehaviour
     public void AssignBuilding(Building b)
     {
         Building = b;
+        b.GridCell = this;
+
         _buildingRenderer.sprite = b.Sprite;
         _buildingRenderer.transform.localPosition = (b.SpriteSize - Vector2.one) * .5f;
         IsSpriteOrigin = true;
@@ -31,7 +33,8 @@ public class GridCell : MonoBehaviour
         _buildingCollider.offset = SpriteCentre;
 
         _timerText.gameObject.SetActive(true);
-        _timerText.text = b.CurrentProduction.ToString();
+        //_timerText.text = b.CurrentProduction.ToString();
+        SetTimerText(b.CurrentProduction);
         _timerText.transform.localPosition = SpriteCentre;
     }
 
@@ -43,5 +46,18 @@ public class GridCell : MonoBehaviour
         IsSpriteOrigin = false;
         _buildingCollider.enabled = false;
         gameObject.name = $"{gameObject.name} {b.BuildingName.Substring(0, 2)}";
+    }
+
+    public void SetTimerText(int time)
+    {
+        if (time < 1)
+        {
+            _timerText.gameObject.SetActive(false);
+            _buildingRenderer.color = Color.white;
+        }
+        else
+        {
+            _timerText.text = time.ToString();
+        }
     }
 }
