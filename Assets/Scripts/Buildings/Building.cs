@@ -64,18 +64,14 @@ public struct BuildingBlueprint
     }
 }
 
-//this is like a BuildingTemplate - 1 of each building type
-//will need another thing for each instance with coord + workers?
-//NVM
 public class Building
 {
-    //public GameObject gObject;
     public GridCell GridCell { get; set; }  //TODO this is bi-directional - keep this?
 
     public Vector2 SpriteSize { get; protected set; }
     public BuildingEnum BuildingType { get; protected set; }
     public string BuildingName { get; set; }
-    public virtual int Level { get; protected set; }    //is sorta count - each time we improve, Level++
+    public virtual int Level { get; protected set; }
     public int Tier { get; set; }   //civ tier
     public int CoinCost { get; set; }
     public int CoinUpkeep { get; set; }

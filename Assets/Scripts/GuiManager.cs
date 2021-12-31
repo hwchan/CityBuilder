@@ -57,16 +57,6 @@ public class GuiManager : MonoBehaviour
         }
 
         Panel.transform.Find("WorkersText").GetComponent<Text>().text = $"{building.Workers} / {building.WorkerCapacity}";
-
-        //if (building.CurrentProduction > 0)
-        //{
-        //    Panel.transform.Find("TimeLeftText").gameObject.SetActive(true);
-        //    Panel.transform.Find("TimeLeftText").GetComponent<Text>().text = building.CurrentProduction.ToString();
-        //}
-        //else
-        //{
-        //    Panel.transform.Find("TimeLeftText").gameObject.SetActive(false);
-        //}
     }
 
     public static void UpdateGui(GoodsCollection inventory)
@@ -77,6 +67,13 @@ public class GuiManager : MonoBehaviour
         foreach (KeyValuePair<Good, int> kvp in inventory)
         {
             var trn = InventoryPanel.transform.Find(kvp.Key.ToString().ToUpper());
+
+            if (trn == null)
+            {
+                //TODO COIN is given as a reward, but is a good - should make all coin stuff into a good
+                return;
+            }
+
             var inv = trn.GetComponent<Text>();
             inv.text = kvp.Value.ToString();
 

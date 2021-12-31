@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
+using System;
 
 public enum Terrain
 {
@@ -32,35 +33,6 @@ public enum Doodad
     WALL,
 }
 
-//public class GridCell
-//{
-//    public Terrain Terrain { get; set; }
-//    public Doodad Doodad { get; set; }
-//    public bool HasWater { get; set; }
-//    public Building Building { get; set; }
-//    public SpriteRenderer Renderer { get; set; }
-//    public GameObject GameObject { get; set; }
-//    public bool SpriteOrigin { get; set; }  //top left origin of sprite
-
-//    public void AssignBuilding(Building b)
-//    {
-//        Building = b;
-//        Renderer.sprite = b.Sprite;
-//        Renderer.transform.localPosition = (b.SpriteSize - Vector2.one) * .5f;
-//        SpriteOrigin = true;
-//        GameObject.name = $"{GameObject.name} {b.BuildingName}";
-//    }
-
-//    public void BlockNonOrigin(Building b)
-//    {
-//        Building = b;
-//        Renderer.sprite = null;
-//        Renderer.transform.localPosition = Vector2.zero;
-//        SpriteOrigin = false;
-//        GameObject.name = $"{GameObject.name} {b.BuildingName.Substring(0, 2)}";
-//    }
-//}
-
 public class GridManager : MonoBehaviour
 {
     [SerializeField] private Transform _gridParent;
@@ -71,6 +43,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Vector2 _botRCoord = new Vector2(10.5f, -9.5f);
 
     private Building _selectedBuilding;
+    public event Action<Building> OnBuildingPlaced;
     public Dictionary<Vector2, GridCell> GridMapDict = new Dictionary<Vector2, GridCell>();
 
     private void Awake()
@@ -79,23 +52,12 @@ public class GridManager : MonoBehaviour
         {
             for (float x = -10.5f; x <= 10.5f; x++)
             {
-                //var cell = new GridCell();
-                //GridMapDict[new Vector2(x, y)] = cell;
-
-                //var go = Instantiate(_placement, new Vector2(x, y), Quaternion.identity);
-                //cell.Renderer = go.GetComponentInChildren<SpriteRenderer>();
-                //cell.Renderer.sprite = null;
-                //cell.GameObject = go;
-                //go.transform.SetParent(_gridParent);
-                //go.name = $"[{x}:{y}]";
-
                 var go = Instantiate(_gridCellPrefab, new Vector2(x, y), Quaternion.identity);
                 GridMapDict[new Vector2(x, y)] = go.GetComponent<GridCell>();
                 go.transform.SetParent(_gridParent);
                 go.name = $"[{x}:{y}]";
             }
         }
-        //Debug.Log(GridMapDict.Count);
     }
 
     private void Update()
@@ -151,13 +113,17 @@ public class GridManager : MonoBehaviour
 
         if (hit)
         {
-            //print(hit.collider.name);
             var cell = hit.transform.GetComponent<GridCell>();
             if (cell && cell.Building != null)
             {
-                //TODO this is also in BuildingButton
+                print(cell.Building.BuildingName);
+
                 GuiManager.UpdateBuildingDetailGui(cell.Building);
-                Globals.BuildingManager.SetCurrentBuilding(cell.Building.BuildingType);
+                Globals.BuildingManager.SetCurrentBuilding(cell.Building);
+            }
+            else
+            {
+                print(hit.collider.name);
             }
         }
     }
@@ -194,6 +160,7 @@ public class GridManager : MonoBehaviour
                 }
             }
 
+            OnBuildingPlaced?.Invoke(_selectedBuilding);
             DisableBuildingGhost();
         }
     }

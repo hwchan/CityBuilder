@@ -47,9 +47,6 @@ public class BuildingsCollection2
                 culture += b.Culture;
 
                 CheckBuildingConstruction(b);
-
-                //if (i == kvp.Value.Count - 1)
-                //    b.BuildingButton.UpdateBuildingButton();
             }
         }
 
@@ -60,7 +57,6 @@ public class BuildingsCollection2
         //calculate the difference in resources
         var incomeInventory = new GoodsCollection(inventory);
         incomeInventory.Subtract(prevGoods);
-        //GuiManager.UpdateGui(Inventory);  //NO NEED WITH OnCollectionChange HOHOHO 
         return incomeInventory;
     }
 
@@ -68,15 +64,7 @@ public class BuildingsCollection2
     {
         if (b.CurrentProduction > 0 && (b.CurrentProduction -= Globals.CityManager.Production) <= 0)
         {
-            //TransitionAnimation.CreateImage(b.Sprite, b.gObject.transform.position, b.gObject.transform.localScale, b.gObject.transform.localScale*2, .75f);
-            //b.gObject.GetComponent<SpriteRenderer>().color = Color.white;
-            //Destroy(b.gObject.transform.Find("TIME(Clone)").gameObject);
-
-            //if (b == null)
-            //    b = CurrentBuilding;
-
             b.AddLevel(1);
-            //b.BuildingButton.OnClick();
             Globals.CityManager.AddCoin(-b.CoinCost);
             Globals.CityManager.SetIncome(Globals.CityManager.Income - b.CoinUpkeep);
         }

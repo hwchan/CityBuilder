@@ -30,9 +30,11 @@ public class BuildingManager : MonoBehaviour
 
         Inventory.OnCollectionChange += (collection, args) => 
         {
-            //Debug.Log(args.Good + (args.Value > 0 ? ": +" + args.Value : ": " + args.Value));
             GuiManager.UpdateGui(Inventory);
         };
+
+        Globals.GridManager.OnBuildingPlaced -= PlaceBuilding;
+        Globals.GridManager.OnBuildingPlaced += PlaceBuilding;
 
         //TODO
         Buildings = new BuildingsCollection();
@@ -56,36 +58,38 @@ public class BuildingManager : MonoBehaviour
         _modeButtons[3].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(3); });
     }
 
-    public Building SetCurrentBuilding(BuildingEnum b)
+    public Building SetCurrentBuilding(Building b)
     {
-        CurrentBuilding = Buildings[b];
+        if (CurrentBuilding?.GridCell != null)
+        {
+            CurrentBuilding.GridCell.Selected = false;
+        }
+        
+        CurrentBuilding = b;
+
         for (int i = 0; i < _modeButtons.Length; i++)
         {
             _modeButtons[i].gameObject.SetActive(i <= CurrentBuilding.BuildingEffects.Count - 1);
         }
+
+        if (CurrentBuilding?.GridCell != null)
+        {
+            CurrentBuilding.GridCell.Selected = true;
+        }
+
+        GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
+
         return CurrentBuilding;
     }
 
-    //public int AddBuildingLevel(Building building)
-    //{
-    //    if (building == null)
-    //        building = CurrentBuilding;
-
-    //    building.AddLevel(1);
-    //    building.BuildingButton.OnClick();
-    //    CityManager.AddCoin(-building.CoinCost);
-    //    CityManager.SetIncome(CityManager.Income - building.CoinUpkeep);
-    //    return building.Level;
-    //}
-
-    public void StartBuildingConstruction(Building b)
+    public Building StartBuildingConstruction(Building b)
     {
         var missingGoods = b.TryStartConstruction(Inventory);
         if (missingGoods.Count > 0)
         {
             Globals.PopupText.PopUp("Missing - " + missingGoods);
             Debug.Log("Missing - " + missingGoods);
-            return;
+            return null;
         }
 
         //TODO START HACK we need that BuildingBlueprint to create a new Building()
@@ -96,20 +100,16 @@ public class BuildingManager : MonoBehaviour
 
         b.CurrentProduction = b.ProductionCost;
         Globals.GridManager.EnableBuildingGhost(b);
-        Buildings2.Add(b);
 
-        CityManager.AddCoin(-b.CoinCost);
-        b.Initialize();
-        GuiManager.UpdateBuildingDetailGui(b);
+        return b;
     }
 
-    //private void CheckBuildingConstruction(Building b)
-    //{
-    //    if (b.CurrentProduction > 0 && (b.CurrentProduction -= Globals.CityManager.Production) <= 0)
-    //    {
-    //        AddBuildingLevel(b);
-    //    }
-    //}
+    public void PlaceBuilding(Building b)
+    {
+        Buildings2.Add(b);
+        CityManager.AddCoin(-b.CoinCost);
+        b.Initialize();
+    }
 
     public void AddWorkers(int val, Building b)
     {
@@ -122,31 +122,6 @@ public class BuildingManager : MonoBehaviour
 
     public void HandleBuildingsOnEndTurn()
     {
-        //int incomeGold = 0;
-        //int culture = 0;
-        //var prevGoods = new GoodsCollection(Inventory);
-
-        //foreach (var key in Buildings.Keys)
-        //{
-        //    var b = Buildings[key];
-        //    b.HandleGoods(Inventory);
-        //    incomeGold -= b.GetUpkeep(Inventory);
-        //    CheckBuildingConstruction(b);
-        //    b.BuildingButton.UpdateBuildingButton();
-        //    culture += b.Culture;
-        //}
-
-        //CityManager.AddCoin(incomeGold);
-        //CityManager.SetIncome(incomeGold);
-        //CityManager.SetCulture(culture);
-
-        //GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
-
-        ////calculate the difference in resources
-        //IncomeInventory = new GoodsCollection(Inventory);
-        //IncomeInventory.Subtract(prevGoods);
-        ////GuiManager.UpdateGui(Inventory);  //NO NEED WITH OnCollectionChange HOHOHO 
-
         IncomeInventory = Buildings2.HandleBuildingsOnEndTurn(Inventory);
     }
 

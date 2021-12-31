@@ -45,3 +45,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+Library/
+Temp/
+Logs/
+UserSettings/EditorUserSettings.asset
+ProjectSettings/VersionControlSettings.asset
+ProjectSettings/PackageManagerSettings.asset
+Packages/packages-lock.json

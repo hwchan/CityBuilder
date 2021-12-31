@@ -9,12 +9,12 @@ public class GridCell : MonoBehaviour
     [SerializeField] private BoxCollider2D _buildingCollider;
     [SerializeField] private Text _timerText;
 
+    private bool _selected;
+
     //public Terrain Terrain { get; set; }
     //public Doodad Doodad { get; set; }
     //public bool HasWater { get; set; }
     public Building Building { get; private set; }
-    //public SpriteRenderer Renderer { get; set; }
-    //public GameObject GameObject { get; set; }
     public bool IsSpriteOrigin { get; set; }  //top left origin of sprite
     public Vector2 SpriteCentre => Building == null ? Vector2.zero : new Vector2(Building.SpriteSize.x / 2f - .5f, Building.SpriteSize.y / 2f - .5f);
 
@@ -33,7 +33,6 @@ public class GridCell : MonoBehaviour
         _buildingCollider.offset = SpriteCentre;
 
         _timerText.gameObject.SetActive(true);
-        //_timerText.text = b.CurrentProduction.ToString();
         SetTimerText(b.CurrentProduction);
         _timerText.transform.localPosition = SpriteCentre;
     }
@@ -59,5 +58,39 @@ public class GridCell : MonoBehaviour
         {
             _timerText.text = time.ToString();
         }
+    }
+
+    public bool Selected
+    {
+        get => _selected;
+        set
+        {
+            _selected = value;
+
+            if (Building != null)
+            {
+                if (_selected)
+                {
+                    StartCoroutine(BlinkCoroutine());
+                }
+                else
+                {
+                    StopCoroutine(BlinkCoroutine());
+                }
+            }
+        }
+    }
+
+    public IEnumerator BlinkCoroutine()
+    {
+        while (_selected)
+        {
+            yield return new WaitForSeconds(.5f);
+            _buildingRenderer.color = Color.gray;
+            yield return new WaitForSeconds(.5f);
+            _buildingRenderer.color = Color.white;
+        }
+
+        _buildingRenderer.color = Color.white;
     }
 }
