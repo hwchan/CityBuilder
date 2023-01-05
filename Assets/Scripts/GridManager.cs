@@ -39,25 +39,30 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject _gridCellPrefab;
     [SerializeField] private GameObject _placement;
     [SerializeField] private SpriteRenderer _sprite;
-    [SerializeField] private Vector2 _topLCoord = new Vector2(-10.5f, 11.5f);
-    [SerializeField] private Vector2 _botRCoord = new Vector2(10.5f, -9.5f);
+    [SerializeField] private Vector2 _topLCoord = new Vector2(-9.5f, 10.5f);
+    [SerializeField] private Vector2 _botRCoord = new Vector2(9.5f, -8.5f);
 
     private Building _selectedBuilding;
+    private Vector2 _localOffset;
+
     public event Action<Building> OnBuildingPlaced;
     public Dictionary<Vector2, GridCell> GridMapDict = new Dictionary<Vector2, GridCell>();
 
     private void Awake()
     {
-        for (float y = 11.5f; y >= -9.5f; y--)
+        for (float y = _topLCoord.y; y >= _botRCoord.y; y--)
         {
-            for (float x = -10.5f; x <= 10.5f; x++)
+            for (float x = _topLCoord.x; x <= _botRCoord.x; x++)
             {
-                var go = Instantiate(_gridCellPrefab, new Vector2(x, y), Quaternion.identity);
+                var go = Instantiate(_gridCellPrefab, Vector3.zero, Quaternion.identity);
                 GridMapDict[new Vector2(x, y)] = go.GetComponent<GridCell>();
                 go.transform.SetParent(_gridParent);
+                go.transform.localPosition = new Vector2(x, y);
                 go.name = $"[{x}:{y}]";
             }
         }
+
+        _localOffset = (Vector2)_gridParent.transform.position;
     }
 
     private void Update()
@@ -66,11 +71,14 @@ public class GridManager : MonoBehaviour
 
         float x = Mathf.Floor(v1.x) + .5f;
         float y = Mathf.Floor(v1.y) + .5f;
+        var offset = new Vector2(_localOffset.x % 1, _localOffset.y % 1);
+        var topLCoord = _topLCoord + _localOffset;
+        var botRCoord = _botRCoord + _localOffset;
 
-        Vector2 v3 = new Vector2(x, y);
+        Vector2 v3 = new Vector2(x, y) + offset;
 
-        if (v3.x >= _topLCoord.x && v3.x <= _botRCoord.x
-            && v3.y <= _topLCoord.y && v3.y >= _botRCoord.y)
+        if (v3.x >= topLCoord.x && v3.x <= botRCoord.x
+            && v3.y <= topLCoord.y && v3.y >= botRCoord.y)
         {
             _placement.transform.position = v3;
         }
@@ -130,6 +138,8 @@ public class GridManager : MonoBehaviour
 
     private void HandlePlaceBuilding(Vector2 v3)
     {
+        v3 = v3 - _localOffset;
+        
         if (GridMapDict.ContainsKey(v3) && _selectedBuilding != null)
         {
             //check the size of the building to see if its blocked
