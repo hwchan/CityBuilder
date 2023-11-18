@@ -4,6 +4,12 @@ using UnityEngine.UI;
 
 public class CityManager : MonoBehaviour
 {
+    [SerializeField] private Text _coinText;
+    [SerializeField] private Text _populationText;
+    [SerializeField] private Text _cultureText;
+    [SerializeField] private Text _scienceText;
+    [SerializeField] private Text _safetyText;
+    [SerializeField] private Text _turnsText;
 
     public int Income { get; private set; }
 
@@ -17,22 +23,9 @@ public class CityManager : MonoBehaviour
 
     public int Unemployed { get; private set; }
 
-    public GameObject Panel;
-    private Text _coinText;
-    private Text _populationText;
-    private Text _cultureText;
-    private Text _scienceText;
-    private Text _safetyText;
-    private Text _turnsText;
 
-    void Start () {
-        _coinText = Panel.transform.Find("CoinText").GetComponent<Text>();
-        _populationText = Panel.transform.Find("PopulationText").GetComponent<Text>();
-        _cultureText = Panel.transform.Find("CultureText").GetComponent<Text>();
-        _scienceText = Panel.transform.Find("ScienceText").GetComponent<Text>();
-        _safetyText = Panel.transform.Find("SafetyText").GetComponent<Text>();
-        _turnsText = Panel.transform.Find("TurnsText").GetComponent<Text>();
-
+    void Start ()
+    {
         AddCoin(10000);
         TryAddPopulation(50);
 

@@ -52,7 +52,7 @@ public class MissionData
                 //var foundBuilding = Globals.BuildingManager.Buildings2[building.BuildingType];
                 //if (foundBuilding.Level < 1)
                 //    return false;
-                if (Globals.BuildingManager.Buildings2[building.BuildingType].Count < 1)
+                if (Globals.BuildingManager.Buildings[building.BuildingType].Count < 1)
                     return false;
             }
         }
@@ -80,6 +80,8 @@ public class MissionData
 
 public class GameEventManager : MonoBehaviour
 {
+    public const int TURNS_PER_MONTH = 30;
+
     private GameEventData[] _events = new[]
     {
         new GameEventData("Humble Beginnings", 
@@ -101,14 +103,14 @@ public class GameEventManager : MonoBehaviour
     public string GetText()
     {
         int turn = Globals.CityManager.Turns;
-        GameEventData eventData = _events[(turn / 4 - 1) % _events.Length];
+        GameEventData eventData = _events[(turn / TURNS_PER_MONTH - 1) % _events.Length];
         string eventText = eventData.Title;
         string missionText = string.Join("\r\n", eventData.Missions.Select(m => m.Title));
 
         CurrentMissions.AddRange(eventData.Missions);
         GetMissionsCompleted();
 
-        return $"Month {turn / 4}, Week {turn % 4 + 1}\r\n{eventText}\r\n\r\n{missionText}";
+        return $"Month {turn / TURNS_PER_MONTH}, Week {turn % TURNS_PER_MONTH + 1}\r\n{eventText}\r\n\r\n{missionText}";
     }
 
     public void GetMissionsCompleted()

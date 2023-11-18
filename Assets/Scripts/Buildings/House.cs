@@ -8,11 +8,13 @@ public class House : Building
 
     public House()
     {
+        SpriteSize = new Vector2(1, 1);
+        BuildingType = BuildingEnum.HOUSE;
         BuildingName = "house";
         Tier = 1;
-        CoinCost = 15;
+        CoinCost = 0;
+        CoinUpkeep = 0;
         ProductionCost = 1;
-        WorkerCapacity = 0;
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();

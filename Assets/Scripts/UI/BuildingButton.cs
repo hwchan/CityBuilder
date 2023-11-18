@@ -27,7 +27,6 @@ public class BuildingButton : MonoBehaviour
     public void OnClick()
     {
         var b = Globals.BuildingManager.StartBuildingConstruction(_building);
-        _buildingManager.SetCurrentBuilding(b);
     }
 
     public void UpdateBuildingButton()

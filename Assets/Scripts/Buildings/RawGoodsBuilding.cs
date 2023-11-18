@@ -85,7 +85,7 @@ public class Castle : Building
         CoinCost = 10;
         CoinUpkeep = 1;
         ProductionCost = 3;
-        BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
+        BuildingCost = new GoodsCollection { { Good.WOOD, 50 }, { Good.STONE, 50 }, { Good.TOOL, 50 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.IRON, 1 }, { Good.TOOL, 1 }, { Good.GRAIN, 1 }, { Good.MEAT, 1 }, { Good.CLAY, 1 }, { Good.COAL, 1 }, { Good.FLAX, 1 }, { Good.HERB, 1 }, { Good.GOLD, 1 }, { Good.CERAMIC, 1 }, { Good.CLOTH, 1 }, { Good.ALE, 1 }, { Good.PAPER, 1 }, { Good.WEAPON, 1 }, { Good.ARTISAN, 1 }, };
         BuildingEffect = null;

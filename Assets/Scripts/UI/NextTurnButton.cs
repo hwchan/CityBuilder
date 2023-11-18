@@ -15,13 +15,15 @@ public class NextTurnButton : MonoBehaviour
     {
         Globals.BuildingManager.HandleBuildingsOnEndTurn();
         Globals.CityManager.AddTurns(1);
+        Globals.NextTurnModal.TryShowNextTurnModal();
+        GuiManager.UpdateBuildingDetailGui(Globals.BuildingManager.CurrentBuilding);
 
         //TODO: refactor this to somewhere else
-        _collection.Add(Globals.BuildingManager.IncomeInventory);
-        if (Globals.CityManager.Turns % 4 == 0)
-        {
-            Globals.NextTurnModal.ShowNextTurnModal(_collection, Globals.GameEventManager.GetText());
-            _collection = new GoodsCollection(0);
-        }
+        // _collection.Add(Globals.BuildingManager.IncomeInventory);
+        // if (Globals.CityManager.Turns % 4 == 0)
+        // {
+        //     Globals.NextTurnModal.ShowNextTurnModal(_collection, Globals.GameEventManager.GetText());
+        //     _collection = new GoodsCollection(0);
+        // }
     }
 }

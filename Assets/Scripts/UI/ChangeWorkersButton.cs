@@ -14,6 +14,6 @@ public class ChangeWorkersButton : MonoBehaviour
 
     void OnClick()
     {
-        Globals.BuildingManager.AddWorkers(value, Globals.BuildingManager.CurrentBuilding);
+        // Globals.BuildingManager.AddWorkers(value, Globals.BuildingManager.CurrentBuilding);
     }
 }

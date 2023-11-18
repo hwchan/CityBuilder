@@ -21,6 +21,7 @@ public enum BuildingEnum
     FLAX_FARM,
     GOLD_MINE,
     GRANARY,
+    HOUSE,
     HUNTING_LODGE,
     IRON_MINE,
     LEATHERWORK,
@@ -76,8 +77,6 @@ public class Building
     public int CoinCost { get; set; }
     public int CoinUpkeep { get; set; }
     public int ProductionCost { get; set; }
-    public int WorkerCapacity { get; set; }
-    public int Workers { get; protected set; }
     public int PopulationIncrease { get; protected set; } = 0;
     public int Culture { get; protected set; }
     public GoodsCollection BuildingCost { get; set; }
@@ -89,34 +88,16 @@ public class Building
 
     public Sprite Sprite { get; set; }
     public BuildingButton BuildingButton { get; set; }
-    public int CurrentProduction { get; set; }
+    public int ProductionLeft { get; set; }
 
-    //public string MaterialsProducedString { get; set; }
-
-    //public Building()
-    //{
-    //    Sprite = Resources.Load<Sprite>(BuildingName);
-    //}
-
-    public void Initialize()
+    public void ResetProduction()
     {
-        CurrentProduction = ProductionCost;
-        //MaterialsProducedString = MaterialsProduced.ToString();
-    }
-
-    public bool TryAddWorker(int val)
-    {
-        var total = Workers + val;
-        if (total < 0 || total > WorkerCapacity)
-            return false;
-
-        Workers += val;
-        return true;
+        ProductionLeft = ProductionCost;
     }
 
     public virtual bool HandleGoods(GoodsCollection inventory)
     {
-        for (int i = 0; i < Workers; i++)
+        if (ProductionLeft <= 0)
         {
             //check required materials
             foreach (Good good in MaterialsRequired.Keys)
@@ -143,13 +124,12 @@ public class Building
 
     public virtual int GetUpkeep(GoodsCollection inventory)
     {
-        return Workers * CoinUpkeep;
+        return CoinUpkeep;
     }
 
     public virtual void AddLevel(int value)
     {
         Level += value;
-        WorkerCapacity = Level * 1;
     }
 
     /// <summary> Decrement BuildingCost from Inventory, otherwise return GoodsCollection of missing goods </summary>
@@ -160,9 +140,9 @@ public class Building
         //check required materials
         foreach (Good good in BuildingCost.Keys)
         {
-            var foo = inventory[good] - BuildingCost[good];
-            if (foo < 0)
-                missingGoods.Add(good, -foo);
+            var delta = inventory[good] - BuildingCost[good];
+            if (delta < 0)
+                missingGoods.Add(good, -delta);
         }
 
         if (missingGoods.Count > 0)

@@ -45,7 +45,7 @@ public class GridManager : MonoBehaviour
     private Building _selectedBuilding;
     private Vector2 _localOffset;
 
-    public event Action<Building> OnBuildingPlaced;
+    public event Action<Building, Action<Building>> OnBuildingPlaced;
     public Dictionary<Vector2, GridCell> GridMapDict = new Dictionary<Vector2, GridCell>();
 
     private void Awake()
@@ -92,6 +92,7 @@ public class GridManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             DebugPrint();
+            DisableBuildingGhost();
         }
     }
 
@@ -109,11 +110,19 @@ public class GridManager : MonoBehaviour
         _placement.SetActive(false);
         _selectedBuilding = null;
         _sprite.sprite = null;
+
+        GuiManager.UpdateBuildingDetailGui(null);
+        Globals.BuildingManager.SetCurrentBuilding(null);
     }
 
     //TODO move this elsewhere
     private void HandleBuildingClick()
     {
+        if (_selectedBuilding != null)
+        {
+            return;
+        }
+        
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 10;
         Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -151,12 +160,11 @@ public class GridManager : MonoBehaviour
                     if (GridMapDict[new Vector2(v3.x + x, v3.y + y)].Building != null)
                     {
                         Debug.LogError($"{v3.x + x}:{v3.y + y} BLOCKED");
+                        Globals.PopupText.PopUp("BLOCKED");
                         return;
                     }
                 }
             }
-
-            GridMapDict[v3].AssignBuilding(_selectedBuilding);
 
             //block non origin cells
             for (int i = 0; i < _selectedBuilding.SpriteSize.x; i ++)
@@ -170,7 +178,7 @@ public class GridManager : MonoBehaviour
                 }
             }
 
-            OnBuildingPlaced?.Invoke(_selectedBuilding);
+            OnBuildingPlaced?.Invoke(_selectedBuilding, b => GridMapDict[v3].AssignBuilding(b));
             DisableBuildingGhost();
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -13,8 +14,7 @@ public class BuildingManager : MonoBehaviour
     public GameObject buildingListObject;
 
     public GoodsCollection Inventory { get; set; }
-    public BuildingsCollection Buildings { get; set; }  //TODO
-    public BuildingsCollection2 Buildings2 { get; set; }
+    public BuildingsCollection Buildings { get; set; }
 
     //TODO this shouldn't be here
     public GoodsCollection IncomeInventory { get; set; }
@@ -26,7 +26,7 @@ public class BuildingManager : MonoBehaviour
         IncomeInventory = new GoodsCollection(0);
         Inventory = new GoodsCollection(100);
         GuiManager.UpdateGui(Inventory);
-        Buildings2 = new BuildingsCollection2();
+        Buildings = new BuildingsCollection();
 
         Inventory.OnCollectionChange += (collection, args) => 
         {
@@ -36,11 +36,9 @@ public class BuildingManager : MonoBehaviour
         Globals.GridManager.OnBuildingPlaced -= PlaceBuilding;
         Globals.GridManager.OnBuildingPlaced += PlaceBuilding;
 
-        //TODO
-        Buildings = new BuildingsCollection();
-        foreach (var key in Buildings.Keys)
+        foreach (var key in BuildingBlueprints.Instance.Keys)
         {
-            Building b = Buildings[key];
+            Building b = BuildingBlueprints.Instance[key];
             b.Sprite = Resources.Load<Sprite>(b.BuildingName);
 
             var btn = Instantiate(buildingButtonObject);
@@ -56,6 +54,9 @@ public class BuildingManager : MonoBehaviour
         _modeButtons[1].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(1); });
         _modeButtons[2].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(2); });
         _modeButtons[3].GetComponent<Button>().onClick.AddListener(() => { OnModeButtonClick(3); });
+
+        var researchManager = new ResearchManager();
+        researchManager.GetResearchTree();
     }
 
     public Building SetCurrentBuilding(Building b)
@@ -67,14 +68,17 @@ public class BuildingManager : MonoBehaviour
         
         CurrentBuilding = b;
 
-        for (int i = 0; i < _modeButtons.Length; i++)
+        if (CurrentBuilding != null)
         {
-            _modeButtons[i].gameObject.SetActive(i <= CurrentBuilding.BuildingEffects.Count - 1);
-        }
+            for (int i = 0; i < _modeButtons.Length; i++)
+            {
+                _modeButtons[i].gameObject.SetActive(i <= CurrentBuilding.BuildingEffects.Count - 1);
+            }
 
-        if (CurrentBuilding?.GridCell != null)
-        {
-            CurrentBuilding.GridCell.Selected = true;
+            if (CurrentBuilding?.GridCell != null)
+            {
+                CurrentBuilding.GridCell.Selected = true;
+            }
         }
 
         GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
@@ -84,45 +88,54 @@ public class BuildingManager : MonoBehaviour
 
     public Building StartBuildingConstruction(Building b)
     {
-        var missingGoods = b.TryStartConstruction(Inventory);
-        if (missingGoods.Count > 0)
-        {
-            Globals.PopupText.PopUp("Missing - " + missingGoods);
-            Debug.Log("Missing - " + missingGoods);
-            return null;
-        }
-
         //TODO START HACK we need that BuildingBlueprint to create a new Building()
         b = (Building)System.Activator.CreateInstance(b.GetType());
         b.Sprite = Resources.Load<Sprite>(b.BuildingName);
         //END HACK
 
-
-        b.CurrentProduction = b.ProductionCost;
+        b.ResetProduction();
         Globals.GridManager.EnableBuildingGhost(b);
-
+        SetCurrentBuilding(b);
         return b;
     }
 
-    public void PlaceBuilding(Building b)
+    public void PlaceBuilding(Building b, Action<Building> assignGridDict)
     {
-        Buildings2.Add(b);
+        var missingGoods = b.TryStartConstruction(Inventory);
+        if (missingGoods.Count > 0)
+        {
+            Globals.PopupText.PopUp("Missing - " + missingGoods);
+            Debug.Log("Missing - " + missingGoods);
+            return;
+        }
+
+        Buildings.Add(b);
         CityManager.AddCoin(-b.CoinCost);
-        b.Initialize();
+
+        assignGridDict?.Invoke(b);
+        b.GridCell.SetTimerText(b.ProductionCost);
     }
 
-    public void AddWorkers(int val, Building b)
+    public void ImproveBuilding(Building b)
     {
-        if (b.TryAddWorker(val))
+        var missingGoods = b.TryStartConstruction(Inventory);
+        if (missingGoods.Count > 0)
         {
-            Globals.CityManager.TryAddUnemployed(-val);
+            Globals.PopupText.PopUp("Missing - " + missingGoods);
+            Debug.Log("Missing - " + missingGoods);
+            return;
         }
+
+        CityManager.AddCoin(-b.CoinCost);
+        b.ResetProduction();
+        b.GridCell.SetTimerText(b.ProductionCost);
+
         GuiManager.UpdateBuildingDetailGui(b);
     }
 
     public void HandleBuildingsOnEndTurn()
     {
-        IncomeInventory = Buildings2.HandleBuildingsOnEndTurn(Inventory);
+        IncomeInventory = Buildings.HandleBuildingsOnEndTurn(Inventory);
     }
 
     private void OnModeButtonClick(int index)

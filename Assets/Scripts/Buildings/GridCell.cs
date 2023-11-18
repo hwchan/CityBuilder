@@ -33,7 +33,6 @@ public class GridCell : MonoBehaviour
         _buildingCollider.offset = SpriteCentre;
 
         _timerText.gameObject.SetActive(true);
-        SetTimerText(b.CurrentProduction);
         _timerText.transform.localPosition = SpriteCentre;
     }
 
@@ -56,6 +55,7 @@ public class GridCell : MonoBehaviour
         }
         else
         {
+            _timerText.gameObject.SetActive(true);
             _timerText.text = time.ToString();
         }
     }

@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Buildings\RawGoodsBuilding.cs" />
      <Compile Include="Assets\Scripts\UI\NextTurnModal.cs" />
+     <Compile Include="Assets\Scripts\Tech\Technology.cs" />
      <Compile Include="Assets\Scripts\Buildings\BuildingManager.cs" />
      <Compile Include="Assets\Scripts\Buildings\GridCell.cs" />
      <Compile Include="Assets\Scripts\UI\BuildingButton.cs" />
