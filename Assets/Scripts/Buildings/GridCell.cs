@@ -16,20 +16,20 @@ public class GridCell : MonoBehaviour
     //public SpriteRenderer Renderer { get; set; }
     //public GameObject GameObject { get; set; }
     public bool IsSpriteOrigin { get; set; }  //top left origin of sprite
-    public Vector2 SpriteCentre => Building == null ? Vector2.zero : new Vector2(Building.SpriteSize.x / 2f - .5f, Building.SpriteSize.y / 2f - .5f);
+    public Vector2 SpriteCentre => Building == null ? Vector2.zero : new Vector2(Building.Blueprint.SpriteSize.x / 2f - .5f, Building.Blueprint.SpriteSize.y / 2f - .5f);
 
     public void AssignBuilding(Building b)
     {
         Building = b;
         b.GridCell = this;
 
-        _buildingRenderer.sprite = b.Sprite;
-        _buildingRenderer.transform.localPosition = (b.SpriteSize - Vector2.one) * .5f;
+        _buildingRenderer.sprite = b.Blueprint.Sprite;
+        _buildingRenderer.transform.localPosition = (b.Blueprint.SpriteSize - Vector2.one) * .5f;
         IsSpriteOrigin = true;
         _buildingCollider.enabled = true;
-        gameObject.name = $"{gameObject.name} {b.BuildingName}";
+        gameObject.name = $"{gameObject.name} {b.Blueprint.BuildingName}";
 
-        _buildingCollider.size = b.SpriteSize;
+        _buildingCollider.size = b.Blueprint.SpriteSize;
         _buildingCollider.offset = SpriteCentre;
 
         _timerText.gameObject.SetActive(true);
@@ -45,7 +45,7 @@ public class GridCell : MonoBehaviour
         _buildingRenderer.transform.localPosition = Vector2.zero;
         IsSpriteOrigin = false;
         _buildingCollider.enabled = false;
-        gameObject.name = $"{gameObject.name} {b.BuildingName.Substring(0, 2)}";
+        gameObject.name = $"{gameObject.name} {b.Blueprint.BuildingName.Substring(0, 2)}";
     }
 
     public void SetTimerText(int time)

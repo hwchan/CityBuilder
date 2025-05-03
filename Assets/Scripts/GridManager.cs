@@ -130,8 +130,8 @@ public class GridManager : MonoBehaviour
         _selectedBuilding = b;
         _placement.SetActive(true);
 
-        _sprite.sprite = _selectedBuilding.Sprite;
-        _sprite.transform.localPosition = (_selectedBuilding.SpriteSize - Vector2.one) * .5f;
+        _sprite.sprite = _selectedBuilding.Blueprint.Sprite;
+        _sprite.transform.localPosition = (_selectedBuilding.Blueprint.SpriteSize - Vector2.one) * .5f;
     }
 
     public void DisableBuildingGhost()
@@ -156,8 +156,8 @@ public class GridManager : MonoBehaviour
             if (cell && cell.Building != null)
             {
                 //TODO this is also in BuildingButton
-                GuiManager.UpdateBuildingDetailGui(cell.Building);
-                Globals.BuildingManager.SetCurrentBuilding(cell.Building.BuildingType);
+                GuiManager.Instance.UpdateBuildingDetails(cell.Building.Blueprint);
+                Globals.BuildingManager.SetCurrentBuilding(cell.Building.Blueprint);
             }
         }
     }
@@ -167,9 +167,9 @@ public class GridManager : MonoBehaviour
         if (GridMapDict.ContainsKey(v3) && _selectedBuilding != null)
         {
             //check the size of the building to see if its blocked
-            for (int x = 0; x < _selectedBuilding.SpriteSize.x; x++)
+            for (int x = 0; x < _selectedBuilding.Blueprint.SpriteSize.x; x++)
             {
-                for (int y = 0; y < _selectedBuilding.SpriteSize.y; y++)
+                for (int y = 0; y < _selectedBuilding.Blueprint.SpriteSize.y; y++)
                 {
                     //Debug.Log(new Vector2(v3.x + x, v3.y + y));
                     if (GridMapDict[new Vector2(v3.x + x, v3.y + y)].Building != null)
@@ -183,9 +183,9 @@ public class GridManager : MonoBehaviour
             GridMapDict[v3].AssignBuilding(_selectedBuilding);
 
             //block non origin cells
-            for (int i = 0; i < _selectedBuilding.SpriteSize.x; i ++)
+            for (int i = 0; i < _selectedBuilding.Blueprint.SpriteSize.x; i ++)
             {
-                for (int j = 0; j < _selectedBuilding.SpriteSize.y; j++)
+                for (int j = 0; j < _selectedBuilding.Blueprint.SpriteSize.y; j++)
                 {
                     var nonOrigin = v3 + new Vector2(i, j);
                     var cell = GridMapDict[nonOrigin];
@@ -205,7 +205,7 @@ public class GridManager : MonoBehaviour
         {
             if (kvp.Value.Building != null)
             {
-                sb.AppendLine($"{kvp.Key.x},{kvp.Key.y}:  {kvp.Value.Building.BuildingName}");
+                sb.AppendLine($"{kvp.Key.x},{kvp.Key.y}:  {kvp.Value.Building.Blueprint.BuildingName}");
             }
         }
         Debug.LogError(sb.ToString());

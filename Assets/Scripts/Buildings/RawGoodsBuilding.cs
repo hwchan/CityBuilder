@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Bakery : Building
+public class Bakery : BuildingBlueprint
 {
     public Bakery()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.BAKERY;
+        //BuildingType = BuildingEnum.BAKERY;
         BuildingName = "bakery";
         Tier = 2;
         CoinCost = 10;
@@ -16,16 +16,16 @@ public class Bakery : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 5 }, { Good.IRON, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.GRAIN, 1 }, { Good.WOOD, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.GRAIN, 3 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Bank : Building
+public class Bank : BuildingBlueprint
 {
     public Bank()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.BANK;
+        //BuildingType = BuildingEnum.BANK;
         BuildingName = "bank";
         Tier = 3;
         CoinCost = 10;
@@ -34,16 +34,16 @@ public class Bank : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Barracks : Building
+public class Barracks : BuildingBlueprint
 {
     public Barracks()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.BARRACKS;
+        //BuildingType = BuildingEnum.BARRACKS;
         BuildingName = "barracks";
         Tier = 3;
         CoinCost = 10;
@@ -52,16 +52,16 @@ public class Barracks : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Brewery : Building
+public class Brewery : BuildingBlueprint
 {
     public Brewery()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.BREWERY;
+        //BuildingType = BuildingEnum.BREWERY;
         BuildingName = "brewery";
         Tier = 2;
         CoinCost = 10;
@@ -70,16 +70,16 @@ public class Brewery : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 5 }, { Good.IRON, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.GRAIN, 1 }, { Good.HERB, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.ALE, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Castle : Building
+public class Castle : BuildingBlueprint
 {
     public Castle()
     {
         SpriteSize = new Vector2(3, 2);
-        BuildingType = BuildingEnum.CASTLE;
+        //BuildingType = BuildingEnum.CASTLE;
         BuildingName = "castle";
         Tier = 1;
         CoinCost = 10;
@@ -88,16 +88,16 @@ public class Castle : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.IRON, 1 }, { Good.TOOL, 1 }, { Good.GRAIN, 1 }, { Good.MEAT, 1 }, { Good.CLAY, 1 }, { Good.COAL, 1 }, { Good.FLAX, 1 }, { Good.HERB, 1 }, { Good.GOLD, 1 }, { Good.CERAMIC, 1 }, { Good.CLOTH, 1 }, { Good.ALE, 1 }, { Good.PAPER, 1 }, { Good.WEAPON, 1 }, { Good.ARTISAN, 1 }, };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Chapel : Building
+public class Chapel : BuildingBlueprint
 {
     public Chapel()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.CHAPEL;
+        //BuildingType = BuildingEnum.CHAPEL;
         BuildingName = "chapel";
         Tier = 1;
         CoinCost = 10;
@@ -106,17 +106,17 @@ public class Chapel : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class ClayPit : Building
+public class ClayPit : BuildingBlueprint
 {
     public ClayPit()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.CLAY_PIT;
-        BuildingName = "claypit";
+        //BuildingType = BuildingEnum.CLAY_PIT;
+        BuildingName = "clay_pit";
         Tier = 1;
         CoinCost = 15;
         CoinUpkeep = 2;
@@ -124,37 +124,37 @@ public class ClayPit : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.CLAY, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class CoalMine : Building
+public class CoalMine : BuildingBlueprint
 {
     public CoalMine()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.COAL_MINE;
+        //BuildingType = BuildingEnum.COAL_MINE;
         BuildingName = "coal_mine";
         Tier = 2;
         CoinCost = 15;
         CoinUpkeep = 2;
-        Culture = 3;
+        //Culture = 3;
         ProductionCost = 3;
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.COAL, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class ConstructionGuild : Building
+public class ConstructionGuild : BuildingBlueprint
 {
-    private string _materialsProducedString;
+    //private string _materialsProducedString;
 
     public ConstructionGuild()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.CONSTRUCTION_GUILD;
+        //BuildingType = BuildingEnum.CONSTRUCTION_GUILD;
         BuildingName = "construction_guild";
         Tier = 2;
         CoinCost = 15;
@@ -163,7 +163,7 @@ public class ConstructionGuild : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.COAL, 1 } };
-        BuildingEffect = Carpenters;
+        //BuildingEffect = Carpenters;
 
         BuildingEffects.Add(Carpenters);
         BuildingEffects.Add(Guilds);
@@ -174,7 +174,7 @@ public class ConstructionGuild : Building
     {
         MaterialsRequired = new GoodsCollection { { Good.WOOD, 3 }, { Good.TOOL, 1 } };
         CoinUpkeep = 10;
-        _materialsProducedString = "production+";
+        //_materialsProducedString = "production+";
         Globals.CityManager.SetProduction(2);
     }
 
@@ -182,30 +182,30 @@ public class ConstructionGuild : Building
     {
         MaterialsRequired = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 3 }, { Good.TOOL, 3 } };
         CoinUpkeep = 15;
-        _materialsProducedString = "construction cost-";
+        //_materialsProducedString = "construction cost-";
     }
 
     private void Architects(GoodsCollection goods)
     {
         MaterialsRequired = new GoodsCollection { { Good.TOOL, 3 }, { Good.PAPER, 5 } };
         CoinUpkeep = 20;
-        _materialsProducedString = "upkeep+, culture+";
+        //_materialsProducedString = "upkeep+, culture+";
     }
 
-    public override string GetMaterialsProducedString()
-    {
-        return _materialsProducedString;
-    }
+    //public override string GetMaterialsProducedString()
+    //{
+    //    return _materialsProducedString;
+    //}
 }
 
-public class Courthouse : Building
+public class Courthouse : BuildingBlueprint
 {
-    private string _materialsProducedString;
+    //private string _materialsProducedString;
 
     public Courthouse()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.COURTHOUSE;
+        //BuildingType = BuildingEnum.COURTHOUSE;
         BuildingName = "courthouse";
         Tier = 3;
         CoinCost = 10;
@@ -214,7 +214,7 @@ public class Courthouse : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
         MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = HousingPolicy;
+        //BuildingEffect = HousingPolicy;
 
         BuildingEffects.Add(HousingPolicy);
         BuildingEffects.Add(ConscriptionPolicy);
@@ -225,35 +225,35 @@ public class Courthouse : Building
     {
         MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         CoinUpkeep = 10;
-        _materialsProducedString = "growth+";
+        //_materialsProducedString = "growth+";
     }
 
     private void ConscriptionPolicy(GoodsCollection goods)
     {
         MaterialsRequired = new GoodsCollection { { Good.PAPER, 3 } };
         CoinUpkeep = 15;
-        _materialsProducedString = "military upkeep-";
+        //_materialsProducedString = "military upkeep-";
     }
 
     private void TaxPolicy(GoodsCollection goods)
     {
         MaterialsRequired = new GoodsCollection { { Good.PAPER, 2 } };
         CoinUpkeep = 20;
-        _materialsProducedString = "tax+";
+        //_materialsProducedString = "tax+";
     }
 
-    public override string GetMaterialsProducedString()
-    {
-        return _materialsProducedString;
-    }
+    //public override string GetMaterialsProducedString()
+    //{
+    //    return _materialsProducedString;
+    //}
 }
 
-public class FishingWharf : Building
+public class FishingWharf : BuildingBlueprint
 {
     public FishingWharf()
     {
         SpriteSize = new Vector2(1, 1);
-        BuildingType = BuildingEnum.FISHING_WHARF;
+        //BuildingType = BuildingEnum.FISHING_WHARF;
         BuildingName = "fishing_wharf";
         Tier = 1;
         CoinCost = 15;
@@ -262,16 +262,16 @@ public class FishingWharf : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.MEAT, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class FlaxFarm : Building
+public class FlaxFarm : BuildingBlueprint
 {
     public FlaxFarm()
     {
         SpriteSize = new Vector2(4, 2);
-        BuildingType = BuildingEnum.FLAX_FARM;
+        //BuildingType = BuildingEnum.FLAX_FARM;
         BuildingName = "flax_farm";
         Tier = 1;
         CoinCost = 15;
@@ -280,16 +280,16 @@ public class FlaxFarm : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.FLAX, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class GoldMine : Building
+public class GoldMine : BuildingBlueprint
 {
     public GoldMine()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.GOLD_MINE;
+        //BuildingType = BuildingEnum.GOLD_MINE;
         BuildingName = "gold_mine";
         Tier = 2;
         CoinCost = 15;
@@ -298,16 +298,16 @@ public class GoldMine : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 3 }, { Good.IRON, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.GOLD, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Granary : Building
+public class Granary : BuildingBlueprint
 {
     public Granary()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.GRANARY;
+        //BuildingType = BuildingEnum.GRANARY;
         BuildingName = "granary";
         Tier = 2;
         CoinCost = 15;
@@ -316,16 +316,16 @@ public class Granary : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 3 }, { Good.IRON, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.GOLD, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class HuntingLodge : Building
+public class HuntingLodge : BuildingBlueprint
 {
     public HuntingLodge()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.HUNTING_LODGE;
+        //BuildingType = BuildingEnum.HUNTING_LODGE;
         BuildingName = "hunting_lodge";
         Tier = 1;
         CoinCost = 15;
@@ -334,16 +334,16 @@ public class HuntingLodge : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 3 }, { Good.IRON, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class IronMine : Building
+public class IronMine : BuildingBlueprint
 {
     public IronMine()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.IRON_MINE;
+        //BuildingType = BuildingEnum.IRON_MINE;
         BuildingName = "iron_mine";
         Tier = 1;
         CoinCost = 15;
@@ -352,16 +352,16 @@ public class IronMine : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.IRON, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Leatherwork : Building
+public class Leatherwork : BuildingBlueprint
 {
     public Leatherwork()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.LEATHERWORK;
+        //BuildingType = BuildingEnum.LEATHERWORK;
         BuildingName = "leatherwork";
         Tier = 1;
         CoinCost = 15;
@@ -370,16 +370,16 @@ public class Leatherwork : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.IRON, 1 } };
-        BuildingEffect = null;
+        //BuildingType = null;
     }
 }
 
-public class Library : Building
+public class Library : BuildingBlueprint
 {
     public Library()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.LIBRARY;
+        //BuildingType = BuildingEnum.LIBRARY;
         BuildingName = "library";
         Tier = 1;
         CoinCost = 10;
@@ -388,7 +388,7 @@ public class Library : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
         MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = Research;
+        //BuildingEffect = Research;
     }
 
     private void Research(GoodsCollection goods)
@@ -399,12 +399,12 @@ public class Library : Building
     }
 }
 
-public class Lighthouse : Building
+public class Lighthouse : BuildingBlueprint
 {
     public Lighthouse()
     {
         SpriteSize = new Vector2(1, 2);
-        BuildingType = BuildingEnum.LIGHTHOUSE;
+        //BuildingType = BuildingEnum.LIGHTHOUSE;
         BuildingName = "lighthouse";
         Tier = 1;
         CoinCost = 10;
@@ -413,16 +413,16 @@ public class Lighthouse : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
         MaterialsRequired = new GoodsCollection { { Good.PAPER, 1 } };
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Lumbermill : Building
+public class Lumbermill : BuildingBlueprint
 {
     public Lumbermill()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.LUMBERMILL;
+        //BuildingType = BuildingEnum.LUMBERMILL;
         BuildingName = "lumbermill";
         Tier = 1;
         CoinCost = 10;
@@ -431,16 +431,16 @@ public class Lumbermill : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Market : Building
+public class Market : BuildingBlueprint
 {
     public Market()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.MARKET;
+        //BuildingType = BuildingEnum.MARKET;
         BuildingName = "market";
         Tier = 1;
         CoinCost = 10;
@@ -449,16 +449,16 @@ public class Market : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Physician : Building
+public class Physician : BuildingBlueprint
 {
     public Physician()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.PHYSICIAN;
+        //BuildingType = BuildingEnum.PHYSICIAN;
         BuildingName = "physician";
         Tier = 1;
         CoinCost = 10;
@@ -467,16 +467,16 @@ public class Physician : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class PigFarm : Building
+public class PigFarm : BuildingBlueprint
 {
     public PigFarm()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.PIG_FARM;
+        //BuildingType = BuildingEnum.PIG_FARM;
         BuildingName = "pig_farm";
         Tier = 1;
         CoinCost = 15;
@@ -485,16 +485,16 @@ public class PigFarm : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 1 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.MEAT, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Potter : Building
+public class Potter : BuildingBlueprint
 {
     public Potter()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.POTTER;
+        //BuildingType = BuildingEnum.POTTER;
         BuildingName = "potter";
         Tier = 1;
         CoinCost = 10;
@@ -503,16 +503,16 @@ public class Potter : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 3 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection { { Good.CLAY, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CERAMIC, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Prison : Building
+public class Prison : BuildingBlueprint
 {
     public Prison()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.PRISON;
+        //BuildingType = BuildingEnum.PRISON;
         BuildingName = "prison";
         Tier = 1;
         CoinCost = 10;
@@ -521,16 +521,16 @@ public class Prison : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 3 }, { Good.STONE, 3 }, { Good.TOOL, 2 } };
         MaterialsRequired = new GoodsCollection { { Good.CLAY, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CERAMIC, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Quarry : Building
+public class Quarry : BuildingBlueprint
 {
     public Quarry()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.QUARRY;
+        //BuildingType = BuildingEnum.QUARRY;
         BuildingName = "quarry";
         Tier = 1;
         CoinCost = 15;
@@ -539,16 +539,16 @@ public class Quarry : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.STONE, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Shipyard : Building
+public class Shipyard : BuildingBlueprint
 {
     public Shipyard()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.SHIPYARD;
+        //BuildingType = BuildingEnum.SHIPYARD;
         BuildingName = "shipyard";
         Tier = 1;
         CoinCost = 15;
@@ -557,16 +557,16 @@ public class Shipyard : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.STONE, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Smithy : Building
+public class Smithy : BuildingBlueprint
 {
     public Smithy()
     {
         SpriteSize = new Vector2(1, 1);
-        BuildingType = BuildingEnum.SMITHY;
+        //BuildingType = BuildingEnum.SMITHY;
         BuildingName = "smithy";
         Tier = 1;
         CoinCost = 10;
@@ -575,16 +575,16 @@ public class Smithy : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.STONE, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection { { Good.IRON, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.TOOL, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Stables : Building
+public class Stables : BuildingBlueprint
 {
     public Stables()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.STABLES;
+        //BuildingType = BuildingEnum.STABLES;
         BuildingName = "stables";
         Tier = 1;
         CoinCost = 10;
@@ -593,16 +593,16 @@ public class Stables : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 2 }, { Good.STONE, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection { { Good.IRON, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.TOOL, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class SteelForge : Building
+public class SteelForge : BuildingBlueprint
 {
     public SteelForge()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.STEEL_FORGE;
+        //BuildingType = BuildingEnum.STEEL_FORGE;
         BuildingName = "steel_forge";
         Tier = 3;
         CoinCost = 10;
@@ -611,7 +611,7 @@ public class SteelForge : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 6 }, { Good.STONE, 8 }, { Good.IRON, 3 }, { Good.TOOL, 6 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection();
-        BuildingEffect = ProduceSteel;
+        //BuildingEffect = ProduceSteel;
 
         BuildingEffects.Add(ProduceSteel);
         BuildingEffects.Add(ProduceTools);
@@ -653,12 +653,12 @@ public class SteelForge : Building
     }
 }
 
-public class Storehouse : Building
+public class Storehouse : BuildingBlueprint
 {
     public Storehouse()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.STOREHOUSE;
+        //BuildingType = BuildingEnum.STOREHOUSE;
         BuildingName = "storehouse";
         Tier = 1;
         CoinCost = 10;
@@ -667,16 +667,16 @@ public class Storehouse : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Tavern : Building
+public class Tavern : BuildingBlueprint
 {
     public Tavern()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.TAVERN;
+        //BuildingType = BuildingEnum.TAVERN;
         BuildingName = "tavern";
         Tier = 1;
         CoinCost = 10;
@@ -685,16 +685,16 @@ public class Tavern : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Theatre : Building
+public class Theatre : BuildingBlueprint
 {
     public Theatre()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.THEATRE;
+        //BuildingType = BuildingEnum.THEATRE;
         BuildingName = "theatre";
         Tier = 1;
         CoinCost = 10;
@@ -703,16 +703,16 @@ public class Theatre : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class TradeDepot : Building
+public class TradeDepot : BuildingBlueprint
 {
     public TradeDepot()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.TRADE_DEPOT;
+        //BuildingType = BuildingEnum.TRADE_DEPOT;
         BuildingName = "trade_depot";
         Tier = 1;
         CoinCost = 10;
@@ -721,16 +721,16 @@ public class TradeDepot : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class University : Building
+public class University : BuildingBlueprint
 {
     public University()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.UNIVERSITY;
+        //BuildingType = BuildingEnum.UNIVERSITY;
         BuildingName = "university";
         Tier = 1;
         CoinCost = 10;
@@ -739,16 +739,16 @@ public class University : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Watermill : Building
+public class Watermill : BuildingBlueprint
 {
     public Watermill()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.WATERMILL;
+        //BuildingType = BuildingEnum.WATERMILL;
         BuildingName = "watermill";
         Tier = 1;
         CoinCost = 10;
@@ -757,16 +757,16 @@ public class Watermill : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Weaver : Building
+public class Weaver : BuildingBlueprint
 {
     public Weaver()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.WEAVER;
+        //BuildingType = BuildingEnum.WEAVER;
         BuildingName = "weaver";
         Tier = 1;
         CoinCost = 10;
@@ -775,16 +775,16 @@ public class Weaver : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class WheatFarm : Building
+public class WheatFarm : BuildingBlueprint
 {
     public WheatFarm()
     {
         SpriteSize = new Vector2(4, 2);
-        BuildingType = BuildingEnum.WHEAT_FARM;
+        //BuildingType = BuildingEnum.WHEAT_FARM;
         BuildingName = "wheat_farm";
         Tier = 1;
         CoinCost = 15;
@@ -793,16 +793,16 @@ public class WheatFarm : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.GRAIN, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Woodcutter : Building
+public class Woodcutter : BuildingBlueprint
 {
     public Woodcutter()
     {
         SpriteSize = new Vector2(1, 1);
-        BuildingType = BuildingEnum.WOODCUTTER;
+        //BuildingType = BuildingEnum.WOODCUTTER;
         BuildingName = "woodcutter";
         Tier = 1;
         CoinCost = 10;
@@ -811,16 +811,16 @@ public class Woodcutter : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 }, { Good.TOOL, 1 } };
         MaterialsRequired = new GoodsCollection();
         MaterialsProduced = new GoodsCollection { { Good.WOOD, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
-public class Workshop : Building
+public class Workshop : BuildingBlueprint
 {
     public Workshop()
     {
         SpriteSize = new Vector2(2, 1);
-        BuildingType = BuildingEnum.WORKSHOP;
+        //BuildingType = BuildingEnum.WORKSHOP;
         BuildingName = "workshop";
         Tier = 1;
         CoinCost = 10;
@@ -829,7 +829,7 @@ public class Workshop : Building
         BuildingCost = new GoodsCollection { { Good.WOOD, 5 }, { Good.STONE, 2 }, { Good.TOOL, 3 } };
         MaterialsRequired = new GoodsCollection { { Good.FLAX, 1 } };
         MaterialsProduced = new GoodsCollection { { Good.CLOTH, 1 } };
-        BuildingEffect = null;
+        //BuildingEffect = null;
     }
 }
 
@@ -861,7 +861,7 @@ public class Workshop : Building
 
 
 
-//public class PaperMill : Building
+//public class PaperMill : BuildingBlueprint
 //{
 
 //    public PaperMill()
@@ -878,7 +878,7 @@ public class Workshop : Building
 //    }
 //}
 
-//public class ArtisanShop : Building
+//public class ArtisanShop : BuildingBlueprint
 //{
 
 //    public ArtisanShop()
@@ -896,7 +896,7 @@ public class Workshop : Building
 //}
 
 
-//public class Mint : Building
+//public class Mint : BuildingBlueprint
 //{
 
 //    public Mint()
@@ -918,7 +918,7 @@ public class Workshop : Building
 //    }
 //}
 
-//public class Mill : Building
+//public class Mill : BuildingBlueprint
 //{
 
 //    public Mill()

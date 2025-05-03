@@ -29,7 +29,7 @@ public class MissionData
     public bool CheckCompletionOnTurnEnd { get; set; } = true;
     public int CompletedOnTurn { get; set; } = -1;
 
-    public Building[] BuildingsRequired { get; set; }
+    public BuildingBlueprint[] BuildingsRequired { get; set; }
     public GoodsCollection GoodsRequired { get; set; }
 
     public MissionData(string title)
@@ -42,7 +42,7 @@ public class MissionData
         return IsBuildingReqMet() && IsGoodsReqMet();
     }
 
-    //only checks for 1 quantity
+    //TODO only checks for 1 quantity
     public bool IsBuildingReqMet()
     {
         if (BuildingsRequired != null)
@@ -52,7 +52,7 @@ public class MissionData
                 //var foundBuilding = Globals.BuildingManager.Buildings2[building.BuildingType];
                 //if (foundBuilding.Level < 1)
                 //    return false;
-                if (Globals.BuildingManager.Buildings2[building.BuildingType].Count < 1)
+                if (Globals.BuildingManager.Buildings[building.BuildingName].Count < 1)
                     return false;
             }
         }

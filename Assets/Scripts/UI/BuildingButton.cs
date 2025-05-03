@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 
 public class BuildingButton : MonoBehaviour
 {
@@ -8,32 +9,36 @@ public class BuildingButton : MonoBehaviour
     private Text _textComponent;
 
     private BuildingManager _buildingManager;
-    private Building _building;
+    private BuildingBlueprint _blueprint;
 
-    public void InitializeBuildingButton(BuildingManager manager, Building building)
+    public void InitializeBuildingButton(BuildingManager manager, BuildingBlueprint blueprint)
     {
         _buildingManager = manager;
-        _building = building;
+        _blueprint = blueprint;
 
         _imageComponent = transform.Find("Image").GetComponent<Image>();
         _textComponent = transform.Find("Text").GetComponent<Text>();
 
-        _imageComponent.rectTransform.sizeDelta = building.SpriteSize;
-        _imageComponent.sprite = _building.Sprite;
-        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
+        _imageComponent.rectTransform.sizeDelta = _blueprint.SpriteSize;
+        _imageComponent.sprite = _blueprint.Sprite;
+
+        int level = BuildingManager.Instance.Buildings[_blueprint.BuildingName].Sum(b => b.Level);
+        _textComponent.text = level + " " + _blueprint.BuildingName.ToUpper();
+
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public void OnClick()
     {
-        GuiManager.UpdateBuildingDetailGui(_building);
+        GuiManager.Instance.UpdateBuildingDetails(_blueprint);
         UpdateBuildingButton();
 
-        _buildingManager.SetCurrentBuilding(_building.BuildingType);
+        _buildingManager.SetCurrentBuilding(_blueprint);
     }
 
     public void UpdateBuildingButton()
     {
-        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
+        int level = BuildingManager.Instance.Buildings[_blueprint.BuildingName].Sum(b => b.Level);
+        _textComponent.text = level + " " + _blueprint.BuildingName.ToUpper();
     }
 }
