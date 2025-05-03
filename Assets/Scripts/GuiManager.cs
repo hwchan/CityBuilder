@@ -29,12 +29,12 @@ public class GuiManager : MonoBehaviour
         ConstructionCostPanel.SetActive(true);
 
         Panel.transform.Find("HeaderImage").GetComponent<Image>().sprite = building.Sprite;
-        Panel.transform.Find("HeaderText").GetComponent<Text>().text = building.BuildingName.ToUpper();
+        Panel.transform.Find("HeaderText").GetComponent<Text>().text = building.Blueprint.BuildingName.ToUpper();
 
-        Panel.transform.Find("UpkeepText").GetComponent<Text>().text = $"{(building.CoinUpkeep > 0 ? "UPKEEP" : "INCOME")}   {-building.CoinUpkeep}";
+        Panel.transform.Find("UpkeepText").GetComponent<Text>().text = $"{(building.Blueprint.CoinUpkeep > 0 ? "UPKEEP" : "INCOME")}   {-building.Blueprint.CoinUpkeep}";
         Panel.transform.Find("LevelText").GetComponent<Text>().text = "LEVEL   " + building.Level;
-        Panel.transform.Find("RequireText").GetComponent<Text>().text = "REQUIRE   " + building.MaterialsRequired;
-        Panel.transform.Find("ProduceText").GetComponent<Text>().text = "PRODUCE   " + building.GetMaterialsProducedString();
+        Panel.transform.Find("RequireText").GetComponent<Text>().text = "REQUIRE   " + building.Blueprint.MaterialsRequired;
+        Panel.transform.Find("ProduceText").GetComponent<Text>().text = "PRODUCE   " + building.Blueprint.GetMaterialsProducedString();
 
         var nextTurnButton = Panel.transform.Find("ImproveBuildingButton").GetComponent<ImproveBuildingButton>();
         nextTurnButton.SetState(building.ProductionLeft < 1);
@@ -47,17 +47,17 @@ public class GuiManager : MonoBehaviour
             if (g == Good.COIN)
             {
                 t.gameObject.SetActive(true);
-                t.Find("Text").GetComponent<Text>().text = building.CoinCost.ToString();
+                t.Find("Text").GetComponent<Text>().text = building.Blueprint.CoinCost.ToString();
             }
             else if (g == Good.TIME)
             {
                 t.gameObject.SetActive(true);
-                t.Find("Text").GetComponent<Text>().text = building.ProductionCost.ToString();
+                t.Find("Text").GetComponent<Text>().text = building.Blueprint.ProductionCost.ToString();
             }
-            else if (building.BuildingCost.ContainsKey(g))
+            else if (building.Blueprint.BuildingCost.ContainsKey(g))
             {
                 t.gameObject.SetActive(true);
-                t.Find("Text").GetComponent<Text>().text = building.BuildingCost[g].ToString();
+                t.Find("Text").GetComponent<Text>().text = building.Blueprint.BuildingCost[g].ToString();
             }
             else
             {

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ResearchManager
 {
     public HashSet<Research> UnlockedResearch { get; } = new HashSet<Research>();
-    public HashSet<BuildingEnum> UnlockedBuildings { get; } = new HashSet<BuildingEnum>();
+    public HashSet<BuildingBlueprint> UnlockedBuildings { get; } = new HashSet<BuildingBlueprint>();
     public HashSet<Upgrade> UnlockedUpgrades { get; } = new HashSet<Upgrade>();
     public HashSet<Research> AvailableResearch { get; } = new HashSet<Research>();
 
@@ -31,9 +31,9 @@ public class ResearchManager
                 Id = "iron_working",
                 Name = "Iron Working",
                 Cost = 3,
-                UnlockBuildings = new HashSet<BuildingEnum>
+                UnlockBuildings = new HashSet<BuildingBlueprint>
                 {
-                    BuildingEnum.IRON_MINE
+                    BuildingBlueprint.Blueprints["iron_mine"]
                 },
                 UnlockUpgrades = new HashSet<string>
                 {
@@ -52,11 +52,11 @@ public class ResearchManager
                 Id = "currency",
                 Name = "Currency",
                 Cost = 3,
-                UnlockBuildings = new HashSet<BuildingEnum>
+                UnlockBuildings = new HashSet<BuildingBlueprint>
                 {
-                    BuildingEnum.GOLD_MINE,
-                    BuildingEnum.TRADE_DEPOT,
-                    BuildingEnum.MARKET
+                    BuildingBlueprint.Blueprints["gold_mine"],
+                    BuildingBlueprint.Blueprints["trade_depot"],
+                    BuildingBlueprint.Blueprints["market"]
                 },
                 Unlocks = new HashSet<string>
                 {
@@ -71,9 +71,9 @@ public class ResearchManager
                 Id = "horseback_riding",
                 Name = "Horseback Riding",
                 Cost = 3,
-                UnlockBuildings = new HashSet<BuildingEnum>
+                UnlockBuildings = new HashSet<BuildingBlueprint>
                 {
-                    BuildingEnum.STABLES
+                    BuildingBlueprint.Blueprints["stables"]
                 },
                 Unlocks = new HashSet<string>
                 {
@@ -88,9 +88,9 @@ public class ResearchManager
                 Id = "apprenticeship",
                 Name = "Apprenticeship",
                 Cost = 3,
-                UnlockBuildings = new HashSet<BuildingEnum>
+                UnlockBuildings = new HashSet<BuildingBlueprint>
                 {
-                    BuildingEnum.WORKSHOP
+                    BuildingBlueprint.Blueprints["workshop"]
                 },
                 UnlockUpgrades = new HashSet<string>
                 {
@@ -112,10 +112,10 @@ public class ResearchManager
                 Id = "construction_guild_upkeep_0",
                 Title = "Construction Guild upkeep reduction",
                 Description = "Reduces upkeep to 0",
-                BuildingType = BuildingEnum.CONSTRUCTION_GUILD,
+                Blueprint = BuildingBlueprint.Blueprints["construction_guild"],
                 OnUpgradeCheck = building =>
                 {
-                    building.CoinUpkeep = 0;
+                    building.Blueprint.CoinUpkeep = 0;
                 }
             }
         },
@@ -125,15 +125,15 @@ public class ResearchManager
                 Id = "construction_guild_carpenters",
                 Title = "Construction Guild Carpenters upgrade",
                 Description = "Increases Carpenters building mode production to 3",
-                BuildingType = BuildingEnum.CONSTRUCTION_GUILD,
+                Blueprint = BuildingBlueprint.Blueprints["construction_guild"],
                 OnUpgradeCheck = building => 
                 {
-                    building.BuildingEffects.Add(Carpenters);
+                    building.Blueprint.BuildingEffects.Add(Carpenters);
 
                     void Carpenters(GoodsCollection goods)
                     {
-                        building.MaterialsRequired = new GoodsCollection { { Good.WOOD, 3 }, { Good.TOOL, 1 } };
-                        building.CoinUpkeep = 10;
+                        building.Blueprint.MaterialsRequired = new GoodsCollection { { Good.WOOD, 3 }, { Good.TOOL, 1 } };
+                        building.Blueprint.CoinUpkeep = 10;
                         // _materialsProducedString = "production+";
                         Globals.CityManager.SetProduction(3);
                     }
@@ -175,7 +175,7 @@ public class Research
     public string Id { get; set; }
     public string Name { get; set; }
     public int Cost { get; set; }
-    public HashSet<BuildingEnum> UnlockBuildings { get; set; }
+    public HashSet<BuildingBlueprint> UnlockBuildings { get; set; }
     public HashSet<string> UnlockUpgrades { get; set; }
 
     // public HashSet<string> Prerequisites { get; set; }
@@ -201,7 +201,7 @@ public abstract class Upgrade
 
 public class BuildingUpgrade : Upgrade
 {
-    public BuildingEnum BuildingType { get; set; }
+    public BuildingBlueprint Blueprint { get; set; }
     public Action<Building> OnUpgradeCheck { get; set; }
 }
 
@@ -211,10 +211,10 @@ public class ConstructionGuildUpkeepUpgrade : BuildingUpgrade
     {
         Title = "Construction Guild upkeep reduction";
         Description = "Reduces upkeep to 0";
-        BuildingType = BuildingEnum.CONSTRUCTION_GUILD;
+        Blueprint = BuildingBlueprint.Blueprints["construction_guild"];
         OnUpgradeCheck = building => 
         {
-            building.CoinUpkeep = 0;
+            building.Blueprint.CoinUpkeep = 0;
         };
     }
 }
@@ -225,15 +225,15 @@ public class ConstructionGuildCarpentersUpgrade : BuildingUpgrade
     {
         Title = "Construction Guild Carpenters upgrade";
         Description = "Increases Carpenters building mode production to 3";
-        BuildingType = BuildingEnum.CONSTRUCTION_GUILD;
+        Blueprint = BuildingBlueprint.Blueprints["construction_guild"];
         OnUpgradeCheck = building => 
         {
-            building.BuildingEffects.Add(Carpenters);
+            building.Blueprint.BuildingEffects.Add(Carpenters);
 
             void Carpenters(GoodsCollection goods)
             {
-                building.MaterialsRequired = new GoodsCollection { { Good.WOOD, 3 }, { Good.TOOL, 1 } };
-                building.CoinUpkeep = 10;
+                building.Blueprint.MaterialsRequired = new GoodsCollection { { Good.WOOD, 3 }, { Good.TOOL, 1 } };
+                building.Blueprint.CoinUpkeep = 10;
                 // _materialsProducedString = "production+";
                 Globals.CityManager.SetProduction(3);
             }

@@ -41,10 +41,12 @@
      <Compile Include="Assets\Scripts\Tech\Technology.cs" />
      <Compile Include="Assets\Scripts\Buildings\BuildingManager.cs" />
      <Compile Include="Assets\Scripts\Buildings\GridCell.cs" />
+     <Compile Include="Assets\Scripts\UI\BuildingPanel.cs" />
      <Compile Include="Assets\Scripts\UI\BuildingButton.cs" />
      <Compile Include="Assets\Scripts\UI\TransitionAnimation.cs" />
      <Compile Include="Assets\Scripts\UI\PopupText.cs" />
      <Compile Include="Assets\Scripts\UI\ImproveBuildingButton.cs" />
+     <Compile Include="Assets\Scripts\UI\InventoryPanel.cs" />
      <Compile Include="Assets\Scripts\Globals.cs" />
      <Compile Include="Assets\Scripts\BuildingsCollection.cs" />
      <Compile Include="Assets\Scripts\GoodsCollection.cs" />
@@ -55,8 +57,11 @@
      <Compile Include="Assets\Scripts\Goods\Good.cs" />
      <Compile Include="Assets\Scripts\CityManager.cs" />
      <Compile Include="Assets\Scripts\GuiManager.cs" />
+     <Compile Include="Assets\Scripts\UI\GoodDisplay.cs" />
      <Compile Include="Assets\Scripts\Buildings\House.cs" />
      <Compile Include="Assets\Scripts\GameEventManager.cs" />
+     <Compile Include="Assets\Scripts\UI\ConstructionCostPanel.cs" />
+     <Compile Include="Assets\Scripts\Buildings\BuildingBlueprint.cs" />
      <Compile Include="Assets\Scripts\UI\NextTurnButton.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

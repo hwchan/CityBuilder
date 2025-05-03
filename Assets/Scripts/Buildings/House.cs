@@ -9,7 +9,7 @@ public class House : BuildingBlueprint
     public House()
     {
         SpriteSize = new Vector2(1, 1);
-        BuildingType = BuildingEnum.HOUSE;
+        // BuildingType = BuildingEnum.HOUSE;
         BuildingName = "house";
         Tier = 1;
         CoinCost = 0;

@@ -2,15 +2,69 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 //TODO replace dictionary key of BuildingEnum, use this
 public abstract class BuildingBlueprint
 {
+    public static Dictionary<string, BuildingBlueprint> Blueprints { get;}
+    public static string[] Keys { get;}
+
+    static BuildingBlueprint()
+    {
+        Blueprints = new Dictionary<string, BuildingBlueprint>
+        {
+            { "house", new House() },
+            { "bakery", new Bakery() },
+            { "bank", new Bank() },
+            { "barracks", new Barracks() },
+            { "brewery", new Brewery() },
+            { "castle", new Castle() },
+            { "chapel", new Chapel() },
+            { "clay_pit", new ClayPit() },
+            { "coal_mine", new CoalMine() },
+            { "construction_guild", new ConstructionGuild() },
+            { "courthouse", new Courthouse() },
+            { "fishing_wharf", new FishingWharf() },
+            { "flax_farm", new FlaxFarm() },
+            { "gold_mine", new GoldMine() },
+            { "granary", new Granary() },
+            { "hunting_lodge", new HuntingLodge() },
+            { "iron_mine", new IronMine() },
+            { "leatherwork", new Leatherwork() },
+            { "library", new Library() },
+            { "lighthouse", new Lighthouse() },
+            { "lumbermill", new Lumbermill() },
+            { "market", new Market() },
+            { "physician", new Physician() },
+            { "pig_farm", new PigFarm() },
+            { "potter", new Potter() },
+            { "prison", new Prison() },
+            { "quarry", new Quarry() },
+            { "shipyard", new Shipyard() },
+            { "smithy", new Smithy() },
+            { "stables", new Stables() },
+            { "steel_forge", new SteelForge() },
+            { "storehouse", new Storehouse() },
+            { "tavern", new Tavern() },
+            { "theatre", new Theatre() },
+            { "trade_depot", new TradeDepot() },
+            { "university", new University() },
+            { "watermill", new Watermill() },
+            { "waver", new Weaver() },
+            { "wheat_farm", new WheatFarm() },
+            { "woodcutter", new Woodcutter() },
+            { "workshop", new Workshop() }
+        };
+        Keys = Blueprints.Keys.ToArray();
+    }
+
     public Vector2 SpriteSize { get; set; }
     public string BuildingName { get; set; }
     public int Tier { get; set; }
     public int CoinCost { get; set; }
     public int CoinUpkeep { get; set; }
+    public int Culture { get; protected set; }
     public int ProductionCost { get; set; }
     public GoodsCollection BuildingCost { get; set; }
     public GoodsCollection MaterialsRequired { get; set; }
@@ -30,6 +84,7 @@ public abstract class BuildingBlueprint
             return _sprite;
         }
     }
+
     public BuildingButton BuildingButton { get; set; }
 
     public BuildingBlueprint()

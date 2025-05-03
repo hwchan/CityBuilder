@@ -8,29 +8,24 @@ public class BuildingButton : MonoBehaviour
     private Text _textComponent;
 
     private BuildingManager _buildingManager;
-    private Building _building;
+    private BuildingBlueprint _blueprint;
 
-    public void InitializeBuildingButton(BuildingManager manager, Building building)
+    public void InitializeBuildingButton(BuildingManager manager, BuildingBlueprint blueprint)
     {
         _buildingManager = manager;
-        _building = building;
+        _blueprint = blueprint;
 
         _imageComponent = transform.Find("Image").GetComponent<Image>();
         _textComponent = transform.Find("Text").GetComponent<Text>();
 
-        _imageComponent.rectTransform.sizeDelta = building.SpriteSize;
-        _imageComponent.sprite = _building.Sprite;
-        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
+        _imageComponent.rectTransform.sizeDelta = blueprint.SpriteSize;
+        _imageComponent.sprite = _blueprint.Sprite;
+        _textComponent.text = _blueprint.BuildingName.ToUpper();
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public void OnClick()
     {
-        var b = Globals.BuildingManager.StartBuildingConstruction(_building);
-    }
-
-    public void UpdateBuildingButton()
-    {
-        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
+        var b = Globals.BuildingManager.StartBuildingConstruction(_blueprint);
     }
 }

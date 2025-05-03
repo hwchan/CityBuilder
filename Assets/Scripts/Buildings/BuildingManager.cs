@@ -21,7 +21,7 @@ public class BuildingManager : MonoBehaviour
 
     [SerializeField] private Button[] _modeButtons = new Button[4];
 
-    void Start ()
+    private void Start ()
     {
         IncomeInventory = new GoodsCollection(0);
         Inventory = new GoodsCollection(100);
@@ -36,10 +36,9 @@ public class BuildingManager : MonoBehaviour
         Globals.GridManager.OnBuildingPlaced -= PlaceBuilding;
         Globals.GridManager.OnBuildingPlaced += PlaceBuilding;
 
-        foreach (var key in BuildingBlueprints.Instance.Keys)
+        foreach (var key in BuildingBlueprint.Keys)
         {
-            Building b = BuildingBlueprints.Instance[key];
-            b.Sprite = Resources.Load<Sprite>(b.BuildingName);
+            BuildingBlueprint b = BuildingBlueprint.Blueprints[key];
 
             var btn = Instantiate(buildingButtonObject);
             btn.transform.SetParent(buildingListObject.transform);
@@ -72,7 +71,7 @@ public class BuildingManager : MonoBehaviour
         {
             for (int i = 0; i < _modeButtons.Length; i++)
             {
-                _modeButtons[i].gameObject.SetActive(i <= CurrentBuilding.BuildingEffects.Count - 1);
+                _modeButtons[i].gameObject.SetActive(i <= CurrentBuilding.Blueprint.BuildingEffects.Count - 1);
             }
 
             if (CurrentBuilding?.GridCell != null)
@@ -86,12 +85,14 @@ public class BuildingManager : MonoBehaviour
         return CurrentBuilding;
     }
 
-    public Building StartBuildingConstruction(Building b)
+    public Building StartBuildingConstruction(BuildingBlueprint blueprint)
     {
-        //TODO START HACK we need that BuildingBlueprint to create a new Building()
-        b = (Building)System.Activator.CreateInstance(b.GetType());
-        b.Sprite = Resources.Load<Sprite>(b.BuildingName);
-        //END HACK
+        // //TODO START HACK we need that BuildingBlueprint to create a new Building()
+        // b = (Building)System.Activator.CreateInstance(b.GetType());
+        // b.Sprite = Resources.Load<Sprite>(b.Blueprint.BuildingName);
+        // //END HACK
+
+        var b = new Building(blueprint);
 
         b.ResetProduction();
         Globals.GridManager.EnableBuildingGhost(b);
@@ -110,10 +111,10 @@ public class BuildingManager : MonoBehaviour
         }
 
         Buildings.Add(b);
-        CityManager.AddCoin(-b.CoinCost);
+        CityManager.AddCoin(-b.Blueprint.CoinCost);
 
         assignGridDict?.Invoke(b);
-        b.GridCell.SetTimerText(b.ProductionCost);
+        b.GridCell.SetTimerText(b.Blueprint.ProductionCost);
     }
 
     public void ImproveBuilding(Building b)
@@ -126,9 +127,9 @@ public class BuildingManager : MonoBehaviour
             return;
         }
 
-        CityManager.AddCoin(-b.CoinCost);
+        CityManager.AddCoin(-b.Blueprint.CoinCost);
         b.ResetProduction();
-        b.GridCell.SetTimerText(b.ProductionCost);
+        b.GridCell.SetTimerText(b.Blueprint.ProductionCost);
 
         GuiManager.UpdateBuildingDetailGui(b);
     }
@@ -140,9 +141,9 @@ public class BuildingManager : MonoBehaviour
 
     private void OnModeButtonClick(int index)
     {
-        if (index < CurrentBuilding.BuildingEffects.Count)
+        if (index < CurrentBuilding.Blueprint.BuildingEffects.Count)
         {
-            CurrentBuilding.BuildingEffect = CurrentBuilding.BuildingEffects[index];
+            CurrentBuilding.BuildingEffect = CurrentBuilding.Blueprint.BuildingEffects[index];
             CurrentBuilding.BuildingEffect?.Invoke(Inventory);
             GuiManager.UpdateBuildingDetailGui(CurrentBuilding);
         }

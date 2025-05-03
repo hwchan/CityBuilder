@@ -27,7 +27,7 @@ public class BuildingPanel : MonoBehaviour
 
         _upkeepText.text = "UPKEEP   G" + building.CoinUpkeep;
 
-        int level = BuildingManager.Instance.Buildings[building.BuildingName].Sum(b => b.Level);
+        int level = Globals.BuildingManager.Buildings[building.BuildingName].Sum(b => b.Level);
         _levelText.text = "LEVEL   " + level;
         requireText.text = "REQUIRE   " + building.MaterialsRequired;
         _produceText.text = "PRODUCE   " + building.GetMaterialsProducedString();
