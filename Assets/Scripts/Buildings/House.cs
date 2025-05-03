@@ -8,9 +8,12 @@ public class House : BuildingBlueprint
 
     public House()
     {
+        SpriteSize = new Vector2(1, 1);
+        BuildingType = BuildingEnum.HOUSE;
         BuildingName = "house";
         Tier = 1;
-        CoinCost = 15;
+        CoinCost = 0;
+        CoinUpkeep = 0;
         ProductionCost = 1;
         BuildingCost = new GoodsCollection { { Good.WOOD, 1 } };
         MaterialsRequired = new GoodsCollection();

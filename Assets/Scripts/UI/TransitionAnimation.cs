@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TransitionAnimation : MonoBehaviour
 {
     [SerializeField] private Image _image = default;
-    [SerializeField] private Text _text = default;
+    // [SerializeField] private Text _text = default;
 
     public static TransitionAnimation CreateImage(string imagePath, Vector3 pos, Vector3 from, Vector3 to, float fadeTime)
     {

@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class ChangeWorkersButton : MonoBehaviour
 {
-    //public int value;
+    public int value;
 
-    //void Start()
-    //{
-    //    GetComponent<Button>().onClick.AddListener(OnClick);
-    //}
+    void Start()
+    {
+        GetComponent<Button>().onClick.AddListener(OnClick);
+    }
 
-    //void OnClick()
-    //{
-    //    Globals.BuildingManager.AddWorkers(value, Globals.BuildingManager.CurrentBuilding);
-    //}
+    void OnClick()
+    {
+        // Globals.BuildingManager.AddWorkers(value, Globals.BuildingManager.CurrentBuilding);
+    }
 }

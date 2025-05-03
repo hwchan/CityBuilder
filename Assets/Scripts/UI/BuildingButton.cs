@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Linq;
 
 public class BuildingButton : MonoBehaviour
 {
@@ -9,36 +8,29 @@ public class BuildingButton : MonoBehaviour
     private Text _textComponent;
 
     private BuildingManager _buildingManager;
-    private BuildingBlueprint _blueprint;
+    private Building _building;
 
-    public void InitializeBuildingButton(BuildingManager manager, BuildingBlueprint blueprint)
+    public void InitializeBuildingButton(BuildingManager manager, Building building)
     {
         _buildingManager = manager;
-        _blueprint = blueprint;
+        _building = building;
 
         _imageComponent = transform.Find("Image").GetComponent<Image>();
         _textComponent = transform.Find("Text").GetComponent<Text>();
 
-        _imageComponent.rectTransform.sizeDelta = _blueprint.SpriteSize;
-        _imageComponent.sprite = _blueprint.Sprite;
-
-        int level = BuildingManager.Instance.Buildings[_blueprint.BuildingName].Sum(b => b.Level);
-        _textComponent.text = level + " " + _blueprint.BuildingName.ToUpper();
-
+        _imageComponent.rectTransform.sizeDelta = building.SpriteSize;
+        _imageComponent.sprite = _building.Sprite;
+        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public void OnClick()
     {
-        GuiManager.Instance.UpdateBuildingDetails(_blueprint);
-        UpdateBuildingButton();
-
-        _buildingManager.SetCurrentBuilding(_blueprint);
+        var b = Globals.BuildingManager.StartBuildingConstruction(_building);
     }
 
     public void UpdateBuildingButton()
     {
-        int level = BuildingManager.Instance.Buildings[_blueprint.BuildingName].Sum(b => b.Level);
-        _textComponent.text = level + " " + _blueprint.BuildingName.ToUpper();
+        _textComponent.text = _building.Level + " " + _building.BuildingName.ToUpper();
     }
 }

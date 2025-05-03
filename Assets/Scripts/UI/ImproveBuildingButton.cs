@@ -2,16 +2,24 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ImproveBuildingButton : MonoBehaviour {
+public class ImproveBuildingButton : MonoBehaviour
+{
+    [SerializeField] private Button _button;
+    [SerializeField] private Text _text;
 
     void Start()
     {
-        GetComponent<Button>().onClick.AddListener(OnClick);
+        _button.onClick.AddListener(OnClick);
     }
 
     void OnClick()
     {
-        //_manager.AddCurrentBuildingLevel();
-        Globals.BuildingManager.StartBuildingConstruction(Globals.BuildingManager.CurrentBuilding);
+        Globals.BuildingManager.ImproveBuilding(Globals.BuildingManager.CurrentBuilding);
+    }
+
+    public void SetState(bool isEnabled)
+    {
+        _button.interactable = isEnabled;
+        _text.text = isEnabled ? "IMPROVE" : "IMPROVING";
     }
 }

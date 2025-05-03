@@ -51,7 +51,16 @@ public class NextTurnModal : MonoBehaviour
         OkButton.onClick.AddListener(() => { gameObject.SetActive(false); });
     }
 
-    public void ShowNextTurnModal(GoodsCollection goods, string text = null)    //TODO prob don't pass in text like this
+    public void TryShowNextTurnModal()
+    {
+        if (Globals.CityManager.Turns % GameEventManager.TURNS_PER_MONTH == 0)
+        {
+            ShowNextTurnModal(Globals.BuildingManager.IncomeInventory, Globals.GameEventManager.GetText());
+            Globals.BuildingManager.IncomeInventory = new GoodsCollection(0);
+        }
+    }
+
+    private void ShowNextTurnModal(GoodsCollection goods, string text = null)
     {
         gameObject.SetActive(true);
         foreach (var i in goods.Keys)
